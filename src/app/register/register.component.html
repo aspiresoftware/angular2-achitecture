@@ -1,0 +1,27 @@
+<a class="link" [routerLink]="['/login']">Login</a>
+<a class="link" [routerLink]="['/register']">Register</a>
+<div class="horizontal-border"></div>
+<form class="form" [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm.value)">
+    <div class="error-tooltip" [ngClass]="{'has-error':!registerForm.controls['email'].valid && registerForm.controls['email'].touched}">
+        <input type="text" placeholder="E-mail" [formControl]="registerForm.controls['email']">
+        <!-- The hasError method will tell us if a particular error exists -->
+        <span *ngIf="registerForm.controls['email'].hasError('required') && registerForm.controls['email'].touched" class="error-tooltiptext">
+            Email is required
+        </span>
+    </div>
+    <div class="error-tooltip" [ngClass]="{'has-error':!registerForm.controls['password'].valid && registerForm.controls['password'].touched}">
+        <input type="password" placeholder="Password" [formControl]="registerForm.controls['password']">
+        <!-- The hasError method can work with the built in validators but custom validators as well -->
+        <span *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].touched" class="error-tooltiptext">Password is required</span>
+        <span *ngIf="registerForm.controls['password'].hasError('minlength') && registerForm.controls['password'].touched" class="error-tooltiptext">Password must be at least 8 characters long</span>
+        <span *ngIf="registerForm.controls['password'].hasError('maxlength') && registerForm.controls['password'].touched" class="error-tooltiptext">Password cannot exceed 12 characters</span>
+    </div>
+    <div class="error-tooltip" [ngClass]="{'has-error':!registerForm.controls['confirmPassword'].valid && registerForm.controls['confirmPassword'].touched}">
+        <input type="password" placeholder="Confirm Password" [formControl]="registerForm.controls['confirmPassword']">
+        <!-- The hasError method can work with the built in validators but custom validators as well -->
+        <span *ngIf="registerForm.controls['confirmPassword'].hasError('required') && registerForm.controls['confirmPassword'].touched" class="error-tooltiptext">confirmPassword is required</span>
+        <span *ngIf="registerForm.controls['confirmPassword'].hasError('minlength') && registerForm.controls['confirmPassword'].touched" class="error-tooltiptext">confirmPassword must be at least 8 characters long</span>
+        <span *ngIf="registerForm.controls['confirmPassword'].hasError('maxlength') && registerForm.controls['confirmPassword'].touched" class="error-tooltiptext">confirmPassword cannot exceed 12 characters</span>
+    </div>
+    <button type="submit" id="login-button" [disabled]="!registerForm.valid">Login</button>
+</form>

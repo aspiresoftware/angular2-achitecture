@@ -1,0 +1,20 @@
+<a class="link" [routerLink]="['/login']">Login</a>
+<a class="link" [routerLink]="['/register']">Register</a>
+<div class="horizontal-border"></div>
+<form class="form" [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
+    <div class="error-tooltip" [ngClass]="{'has-error':!loginForm.controls['email'].valid && loginForm.controls['email'].touched}">
+        <input type="text" placeholder="E-mail" [formControl]="loginForm.controls['email']">
+        <!-- The hasError method will tell us if a particular error exists -->
+        <span *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched" class="error-tooltiptext">
+            email is required
+        </span>
+    </div>
+    <div class="error-tooltip" [ngClass]="{'has-error':!loginForm.controls['password'].valid && loginForm.controls['password'].touched}">
+        <input type="password" placeholder="Password" [formControl]="loginForm.controls['password']">
+        <!-- The hasError method can work with the built in validators but custom validators as well -->
+        <span *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" class="error-tooltiptext">Password is required</span>
+        <span *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched" class="error-tooltiptext">Password must be at least 8 characters long</span>
+        <span *ngIf="loginForm.controls['password'].hasError('maxlength') && loginForm.controls['password'].touched" class="error-tooltiptext">Password cannot exceed 12 characters</span>
+    </div>
+    <button type="submit" id="login-button" [disabled]="!loginForm.valid">Login</button>
+</form>
