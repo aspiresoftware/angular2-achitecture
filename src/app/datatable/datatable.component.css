@@ -1,0 +1,13 @@
+.table {
+    font-size: 14px;
+}
+div.table-responsive {
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+}
+.modal {
+  background: rgba(0,0,0,0.6);
+}
+.custom-navbar-brand {
+    padding: 8px 15px;
+}

@@ -13,6 +13,9 @@ export class Configuration {
     public STATES = {
         login: 'login',
         register: 'register',
-        home: 'home'
+        home: 'home',
+        datatable: 'datatable',
+        updateData: 'updateData/:name/:email/:age/:city',
+        infiniteScroll: 'infiniteScroll'
     }
 }

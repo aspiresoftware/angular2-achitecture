@@ -11,7 +11,7 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a [routerLink]="['/datatable']">CRUD Demo</a></li>
+        <li><a [routerLink]="['/datatable']">CRUD Demo</a></li>
         <li><a [routerLink]="['/infiniteScroll']">Lazy Load Demo</a></li>
         <!--<li><a href="#contact">Contact</a></li>-->
       </ul>
@@ -19,6 +19,16 @@
   </div>
 </nav>
 
-<h1>
-  Home Page
-</h1>
+<div class="container">
+  
+  <div class="well">
+    <h4>Angular2 - Lazy Load Data Demo</h4>
+  </div>
+
+  <h3>Count: {{count}}</h3>
+
+  <ul class="list-group" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
+    <li *ngFor="let item of data" class="list-group-item">{{item.name}}</li>
+  </ul>
+
+</div>
