@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Configuration } from '../app.constants';
+import { DelegatorService } from '../common/ts/delegator.service';
 
 @Injectable()
 export class InfiniteScrollService {
 
+  private actionUrl: {
+    servicesUrl: string
+  };
+  
   constructor(
-    private http:Http
-  ) { }
+    private _configuration: Configuration,
+    private delegatorService: DelegatorService
+  ) {
+    this.actionUrl = {
+      servicesUrl: this._configuration.REST_URL.services
+    };
+  }
 
-  getData() {
-    return this.http.get('app/data.json')
-    .map((res:Response) => res.json())
-    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  getData(page) {
+    if (page <= 1) {
+      return this.delegatorService.get(this.actionUrl.servicesUrl);
+    } else {
+      return this.delegatorService.get(this.actionUrl.servicesUrl + '?page=' + page);
+    }
   }
 
 }

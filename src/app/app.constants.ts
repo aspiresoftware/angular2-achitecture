@@ -8,7 +8,8 @@ export class Configuration {
     };
     public REST_URL = {
         register: 'user',
-        login: 'authenticate'
+        login: 'authenticate',
+        services: 'services'
     };
     public STATES = {
         login: 'login',

@@ -19,7 +19,7 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container" (window:resize)="onResize($event)">
 
   <div class="well">
     <div class="navbar-brand custom-navbar-brand">Angular2 Datatable</div>
@@ -30,7 +30,7 @@
     <div class="alert alert-danger" role="alert">No Data available. Use "Add Data" to add some data.</div>
   </div>
 
-  <div class="table-responsive" *ngIf="data.length > 0">
+  <div class="table-responsive desktop" *ngIf="data.length > 0">
     <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
         <thead>
         <tr>
@@ -68,6 +68,21 @@
         </tr>
         </tfoot>
     </table>    
+  </div>
+
+  <div class="mobile" *ngIf="data.length > 0 && windowWidth < 769" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
+    <h1 class="title well"><small>{{count}}</small></h1>
+    <div class="container user-block" *ngFor="let item of mobileData">
+      <div class="col-xs-10 user-detail" [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">
+        <b>Name:</b> {{item.name}}<br>
+        <b>Email:</b> {{item.email}}<br>
+        <b>Age:</b> {{item.age}}<br>
+        <b>City:</b> {{item.city}}<br>
+      </div>
+      <div class="col-xs-2 delete-user-detail">
+        <button type="button" class="btn btn-danger" (click)="deleteData(item.name, item.email, item.age, item.city)">x</button>
+      </div>
+    </div>
   </div>
 
   <div class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">

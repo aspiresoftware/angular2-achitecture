@@ -14,6 +14,11 @@ export class DatatableComponent implements OnInit {
   email;
   age;
   city;
+  mobileData;
+  count;
+  page = 0;
+  pagesize = 10;
+  windowWidth;
   // Modal Variable Declarations
   visible = false;
   visibleAnimate = false;
@@ -36,6 +41,9 @@ export class DatatableComponent implements OnInit {
         }
       );
     }
+    this.mobileData = this.data.slice(this.page, this.pagesize);
+    this.count = this.mobileData.length;
+    this.windowWidth = window.innerWidth;
   }
 
   postData() {
@@ -46,17 +54,21 @@ export class DatatableComponent implements OnInit {
       age: this.age
     };
     this.data.push(newData);
+    this.mobileData.push(newData);
     this.datatableService.postData(newData);
     this.clearData();
+    this.count = this.mobileData.length;
   }
 
   deleteData(name, email, age, city) {
     for(var i=0; i < this.data.length; i++) {
       if(this.data[i].name === name && this.data[i].email === email && this.data[i].age === age && this.data[i].city === city) {
         this.data.splice(i, 1);
+        this.mobileData.splice(i, 1);
       }
     }
     this.datatableService.deleteData(name, email, age, city);
+    this.count = this.mobileData.length;
   }
 
   clearData() {
@@ -78,5 +90,19 @@ export class DatatableComponent implements OnInit {
   //   this.visibleAnimate = false;
   //   setTimeout(() => this.visible = false, 300);
   // }
+
+  getMoreData() {
+    this.page += 1;
+    var start = this.page * this.pagesize;
+    var end = (this.page + 1) * this.pagesize;
+    var moreData = this.data.slice(start, end);
+    this.mobileData = this.mobileData.concat(moreData);
+    this.count = this.mobileData.length;
+  }
+
+  // @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.windowWidth = event.target.innerWidth;
+  }
 
 }

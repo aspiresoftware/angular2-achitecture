@@ -9,37 +9,53 @@ import { InfiniteScrollService } from './infinite-scroll.service';
 export class InfiniteScrollComponent implements OnInit {
 
   // Variable Declarations
-  result;
+  currentPage;
+  hasNext;
+  hasPrevious;
+  pages;
   data;
   count;
   page = 1;
-  pagesize = 10;
 
   constructor(
     private infiniteScrollService: InfiniteScrollService
   ) { }
 
   ngOnInit() {
-    this.infiniteScrollService.getData().subscribe(
-      res => {
-        this.result = res;
-        // localStorage.setItem('data', JSON.stringify(this.data));
-        this.data = this.result.splice(this.page, 20);
-        this.count = this.data.length;
-      },
+    let operation = this.infiniteScrollService.getData(this.page);
+    operation.subscribe(
+      (res) => {
+          this.currentPage = res.currentPage;
+          this.hasNext = res.hasNext;
+          this.hasPrevious = res.hasPrevious;
+          this.pages = res.pages;
+          this.data = res.services;
+          this.count = this.data.length;
+      }, 
       err => {
-        // Log errors if any
-        console.log(err);
+          console.log(err);
       }
     );
   }
 
   getMoreData() {
-    this.page += 1;
-    var start = this.page * 10;
-    var moreData = this.result.splice(start, this.pagesize);
-    this.data.push(moreData);
-    this.count = this.data.length;
+    if (this.hasNext) {
+      this.page += 1;
+      let operation = this.infiniteScrollService.getData(this.page);
+      operation.subscribe(
+        (res) => {
+            this.currentPage = res.currentPage;
+            this.hasNext = res.hasNext;
+            this.hasPrevious = res.hasPrevious;
+            this.pages = res.pages;
+            this.data = this.data.concat(res.services);
+            this.count = this.data.length;
+        }, 
+        err => {
+            console.log(err);
+        }
+      );
+    }
   }
 
 }

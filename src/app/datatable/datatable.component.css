@@ -2,7 +2,7 @@
     font-size: 14px;
 }
 div.table-responsive {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border: 1px solid #000000;
 }
 .modal {
@@ -10,4 +10,43 @@ div.table-responsive {
 }
 .custom-navbar-brand {
     padding: 8px 15px;
+}
+.user-block {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+.user-detail {
+    padding-left: 0;
+    word-wrap: break-word;
+}
+.delete-user-detail {
+    padding-right: 0;
+}
+.title {
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    z-index: 1;
+}
+.title small {
+    color: #eaeaea;
+}
+
+
+.desktop {
+    display: block;
+}
+.mobile {
+    display: none;
+}
+@media only screen and (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+    .mobile {
+        display: block;
+        margin-bottom: 20px;
+    }
 }

@@ -19,16 +19,18 @@
   </div>
 </nav>
 
+<h1 class="title well"><small>{{count}}</small></h1>
+
 <div class="container">
-  
+
   <div class="well">
     <h4>Angular2 - Lazy Load Data Demo</h4>
   </div>
 
-  <h3>Count: {{count}}</h3>
-
-  <ul class="list-group" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
-    <li *ngFor="let item of data" class="list-group-item">{{item.name}}</li>
+  <ul class="list-group" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
+    <li *ngFor="let item of data" class="list-group-item list-group-height">
+      <b>Service:</b> {{item.service}}
+    </li>
   </ul>
 
 </div>
