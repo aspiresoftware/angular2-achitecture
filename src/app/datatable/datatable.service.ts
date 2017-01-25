@@ -5,36 +5,27 @@ import { Observable } from 'rxjs/Rx';
 @Injectable()
 export class DatatableService {
 
-  constructor(private http:Http) {
-    console.log('Executing : DatatableService');
-  }
+  constructor(
+    private http:Http
+  ) { }
 
   getData() {
-    console.log('Executing : getDataService');
-    
     var data = JSON.parse(localStorage.getItem('data'));
 
-    console.log('data: ',data);
-
     if (data === null || data.length <= 0) {
-      console.log('No data found');
       return [];
     } else {
-      console.log('Found Data.');
       return data;
     }
   }
 
   getDummyData() {
-    console.log('Executing : getDummyDataService');
-
     return this.http.get('app/data.json')
     .map((res:Response) => res.json())
     .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  addData(newData) {
-    console.log('Executing : addDataService');
+  postData(newData) {
     var data = JSON.parse(localStorage.getItem('data'));
 
     if (data === null) {
@@ -46,7 +37,6 @@ export class DatatableService {
   }
 
   deleteData(name, email, age, city) {
-    console.log('Executing : deleteDataService');
     var data = JSON.parse(localStorage.getItem('data'));
 
     for(var i=0; i < data.length; i++) {
@@ -58,8 +48,7 @@ export class DatatableService {
     localStorage.setItem('data', JSON.stringify(data));
   }
 
-  updateData(oldData, updatedData) {
-    console.log('Executing : updateDataService');
+  putData(oldData, updatedData) {
     var data = JSON.parse(localStorage.getItem('data'));
     var oldDataAge = Number(oldData.age);
     var updatedDataAge = Number(updatedData.age);

@@ -24,7 +24,6 @@ export class InfiniteScrollComponent implements OnInit {
       res => {
         this.result = res;
         // localStorage.setItem('data', JSON.stringify(this.data));
-        console.log('Data Added');
         this.data = this.result.splice(this.page, 20);
         this.count = this.data.length;
       },
@@ -36,7 +35,6 @@ export class InfiniteScrollComponent implements OnInit {
   }
 
   getMoreData() {
-    console.log('Executing : getMoreData()');
     this.page += 1;
     var start = this.page * 10;
     var moreData = this.result.splice(start, this.pagesize);

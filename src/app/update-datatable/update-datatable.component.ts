@@ -29,7 +29,6 @@ export class UpdateDatatableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('params: ',this.route.snapshot.params);
     this.oldData = this.route.snapshot.params;
     this.name = this.oldData.name;
     this.email = this.oldData.email;
@@ -37,15 +36,14 @@ export class UpdateDatatableComponent implements OnInit {
     this.city = this.oldData.city;
   }
 
-  updateData() {
-    console.log('Executing : updateData()');
+  putData() {
     var updatedData = {
       name: this.name,
       email: this.email,
       city: this.city,
       age: this.age
     };
-    this.datatableService.updateData(this.oldData, updatedData);
+    this.datatableService.putData(this.oldData, updatedData);
     // this.router.navigate(['/datatable']);
     this.utilityService.navigateToState(this.configuration.STATES.datatable);
   }

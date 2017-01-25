@@ -11,8 +11,8 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li><a [routerLink]="['/datatable']">CRUD Demo</a></li>
-        <li><a [routerLink]="['/infiniteScroll']">Lazy Load Demo</a></li>
+        <li><a [routerLink]="['/datatable']">Client Side Pagination</a></li>
+        <li><a [routerLink]="['/infiniteScroll']">Server Side Pagination</a></li>
         <!--<li><a href="#contact">Contact</a></li>-->
       </ul>
     </div><!--/.nav-collapse -->
@@ -73,7 +73,7 @@
   <div class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}" [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form (ngSubmit)="addData()" class="form-horizontal">
+        <form (ngSubmit)="postData()" class="form-horizontal">
           <div class="modal-header">
             <div class="app-modal-header">
               Add Data

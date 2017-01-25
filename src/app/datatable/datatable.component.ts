@@ -25,12 +25,10 @@ export class DatatableComponent implements OnInit {
   ngOnInit() {
     this.data = this.datatableService.getData();
     if(this.data.length <= 0) {
-      console.log('Get Dummy Data');
       this.datatableService.getDummyData().subscribe(
         res => {
           this.data = res;
           localStorage.setItem('data', JSON.stringify(this.data));
-          console.log('Dummmy Data Added: ',this.data);
         },
         err => {
           // Log errors if any
@@ -40,8 +38,7 @@ export class DatatableComponent implements OnInit {
     }
   }
 
-  addData() {
-    console.log('Executing : addData()');
+  postData() {
     var newData = {
       name: this.name,
       email: this.email,
@@ -49,12 +46,11 @@ export class DatatableComponent implements OnInit {
       age: this.age
     };
     this.data.push(newData);
-    this.datatableService.addData(newData);
+    this.datatableService.postData(newData);
     this.clearData();
   }
 
   deleteData(name, email, age, city) {
-    console.log('Executing : deleteData()');
     for(var i=0; i < this.data.length; i++) {
       if(this.data[i].name === name && this.data[i].email === email && this.data[i].age === age && this.data[i].city === city) {
         this.data.splice(i, 1);
