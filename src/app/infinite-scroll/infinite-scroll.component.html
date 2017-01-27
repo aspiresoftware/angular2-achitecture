@@ -21,16 +21,67 @@
 
 <h1 class="title well"><small>{{count}}</small></h1>
 
-<div class="container">
+<div class="container" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
 
   <div class="well">
     <h4>Angular2 - Lazy Load Data Demo</h4>
   </div>
 
-  <ul class="list-group" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
-    <li *ngFor="let item of data" class="list-group-item list-group-height">
-      <b>Service:</b> {{item.service}}
-    </li>
-  </ul>
+  <div class="text-center" *ngIf="count <= 0">
+    <div class="alert alert-danger" role="alert">No Data available.</div>
+  </div>
+
+  <div class="table-responsive desktop" *ngIf="count > 0">
+    <table class="table table-striped" [mfData]="data" #mf="mfDataTable">
+      <!-- [mfRowsOnPage]="5"-->
+      <thead>
+        <tr>
+            <th style="width: 20%">
+                <mfDefaultSorter by="id">id</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+                <mfDefaultSorter by="service">Service</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+                <mfDefaultSorter by="isActivate">isActivate</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+                <mfDefaultSorter by="createdAt">createdAt</mfDefaultSorter>
+            </th>
+            <th style="width: 20%">
+                <mfDefaultSorter by="updatedAt">updatedAt</mfDefaultSorter>
+            </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of mf.data">
+            <td>{{item.id}}</td>
+            <td>{{item.service}}</td>
+            <td>{{item.isActivate}}</td>
+            <td>{{item.createdAt}}</td>
+            <td>{{item.updatedAt}}</td>
+        </tr>
+      </tbody>
+      <!--<tfoot>
+        <tr>
+            <td colspan="4">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+      </tfoot>-->
+    </table>
+  </div>
+
+  <div class="mobile" *ngIf="count > 0">
+    <ul class="list-group">
+      <li *ngFor="let item of data" class="list-group-item">
+        <b>id:</b> {{item.id}}<br>
+        <b>Service:</b> {{item.service}}<br>
+        <b>isActivate:</b> {{item.isActivate}}<br>
+        <b>createdAt:</b> {{item.createdAt}}<br>
+        <b>updatedAt:</b> {{item.updatedAt}}<br>
+      </li>
+    </ul>
+  </div>
 
 </div>

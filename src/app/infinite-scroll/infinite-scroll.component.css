@@ -1,3 +1,7 @@
+div.table-responsive {
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+}
 .title {
     position: fixed;
     bottom: 50px;
@@ -9,6 +13,20 @@
 .title small {
     color: #eaeaea;
 }
-.list-group-height {
-     height: 70px;
+
+
+.desktop {
+    display: block;
+}
+.mobile {
+    display: none;
+}
+@media only screen and (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+    .mobile {
+        display: block;
+        margin-bottom: 20px;
+    }
 }
