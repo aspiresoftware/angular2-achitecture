@@ -8,7 +8,7 @@ export class InfiniteScrollService {
   private actionUrl: {
     servicesUrl: string
   };
-  
+
   constructor(
     private _configuration: Configuration,
     private delegatorService: DelegatorService

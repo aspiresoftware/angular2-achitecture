@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { DataTableModule } from "angular2-datatable";
+import { DataTableModule } from 'angular2-datatable';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,9 @@ import { UtilityService } from './common/ts/utility.service';
 import { AuthGuardService } from './common/ts/auth-guard.service';
 import { DatatableService } from './datatable/datatable.service';
 import { InfiniteScrollService } from './infinite-scroll/infinite-scroll.service';
+
+// Aspect Modules
+import { LoggingAspect } from './aspects/logging.aspect';
 
 import { RouterModule } from '@angular/router';
 
@@ -54,7 +57,8 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
     UtilityService,
     AuthGuardService,
     DatatableService,
-    InfiniteScrollService
+    InfiniteScrollService,
+    LoggingAspect
   ],
   bootstrap: [AppComponent]
 })
