@@ -49,12 +49,10 @@ export class LoginComponent implements OnInit {
       'password'
     );
 
-    let operation:Observable<any> = this.loginService.authenticateUser(this.loginModel);
-    operation.subscribe(
-      (result) => {
-          console.log(result);
-          let auth = result.auth;
-          let user = result.user;
+    const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel);
+    const success = (result) => {
+          const auth = result.auth;
+          const user = result.user;
 
           this.localStorageService.create();
           this.localStorageService.setValue('id', user.id);
@@ -66,9 +64,7 @@ export class LoginComponent implements OnInit {
           this.navbarService.showNavBar(true);
 
           this.utilityService.navigateToState(this.configuration.STATES.home);
-      }, 
-      err => {
-          console.log(err);
-      });
+      };
+      this.utilityService.handleRespone(operation, success);
   }
 }

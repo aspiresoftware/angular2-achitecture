@@ -20,6 +20,9 @@ import { DatatableService } from './datatable/datatable.service';
 import { InfiniteScrollService } from './infinite-scroll/infinite-scroll.service';
 import { NavbarService } from './navbar/navbar.service';
 
+// Aspect Modules
+import { LoggingAspect } from './aspects/logging.aspect';
+
 import { RouterModule } from '@angular/router';
 
 import { AppRoutes } from './app.routes';
@@ -60,6 +63,7 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     AuthGuardService,
     DatatableService,
     InfiniteScrollService,
+    LoggingAspect,
     NavbarService
   ],
   bootstrap: [AppComponent]

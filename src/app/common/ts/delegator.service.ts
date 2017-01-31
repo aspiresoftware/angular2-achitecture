@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import {Wove} from 'aspect.js-angular';
 
 import { Configuration } from '../../app.constants';
 
@@ -11,6 +12,7 @@ import { RegisterModel } from '../../common/models/registerModel.structure';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+@Wove()
 @Injectable()
 export class DelegatorService {
 
@@ -24,6 +26,7 @@ export class DelegatorService {
     this.server = _configuration.SERVER.host + _configuration.SERVER.apiUrl;
   }
 
+  // TODO : Need to remove this function once noopur will fix header stuff and uncomment below get function
   public get(url: string) {
 
     // Prepare header
@@ -132,7 +135,6 @@ export class DelegatorService {
   }
 
   private handleError(error: Response) {
-      console.log(error);
-      return Observable.throw(error.json().errors || 'Server error');
+      return Observable.throw(error.json().error || 'Server error');
   }
 }

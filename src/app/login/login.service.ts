@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import {Wove} from 'aspect.js-angular';
+
 import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
+@Wove()
 @Injectable()
 export class LoginService {
 
