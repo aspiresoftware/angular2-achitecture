@@ -14,7 +14,7 @@ export class InfiniteScrollComponent implements OnInit {
   hasPrevious;
   pages;
   data;
-  count;
+  count = 0;
   page = 1;
 
   constructor(
@@ -22,7 +22,7 @@ export class InfiniteScrollComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let operation = this.infiniteScrollService.getData(this.page);
+    const operation = this.infiniteScrollService.getData(this.page);
     operation.subscribe(
       (res) => {
           this.currentPage = res.currentPage;
@@ -31,7 +31,7 @@ export class InfiniteScrollComponent implements OnInit {
           this.pages = res.pages;
           this.data = res.services;
           this.count = this.data.length;
-      }, 
+      },
       err => {
           console.log(err);
       }
@@ -41,7 +41,7 @@ export class InfiniteScrollComponent implements OnInit {
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
-      let operation = this.infiniteScrollService.getData(this.page);
+      const operation = this.infiniteScrollService.getData(this.page);
       operation.subscribe(
         (res) => {
             this.currentPage = res.currentPage;
@@ -50,7 +50,7 @@ export class InfiniteScrollComponent implements OnInit {
             this.pages = res.pages;
             this.data = this.data.concat(res.services);
             this.count = this.data.length;
-        }, 
+        },
         err => {
             console.log(err);
         }

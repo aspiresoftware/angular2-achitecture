@@ -37,7 +37,7 @@ export class UpdateDatatableComponent implements OnInit {
   }
 
   putData() {
-    var updatedData = {
+    const updatedData = {
       name: this.name,
       email: this.email,
       city: this.city,

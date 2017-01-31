@@ -8,18 +8,18 @@ import { DatatableService } from './datatable.service';
 })
 export class DatatableComponent implements OnInit {
 
-  // Variable Declarations
+  // letiable Declarations
   data;
   name;
   email;
   age;
   city;
   mobileData;
-  count;
+  count = 0;
   page = 0;
   pagesize = 10;
   windowWidth;
-  // Modal Variable Declarations
+  // Modal letiable Declarations
   visible = false;
   visibleAnimate = false;
 
@@ -29,7 +29,7 @@ export class DatatableComponent implements OnInit {
 
   ngOnInit() {
     this.data = this.datatableService.getData();
-    if(this.data.length <= 0) {
+    if (this.data.length <= 0) {
       this.datatableService.getDummyData().subscribe(
         res => {
           this.data = res;
@@ -47,7 +47,7 @@ export class DatatableComponent implements OnInit {
   }
 
   postData() {
-    var newData = {
+    const newData = {
       name: this.name,
       email: this.email,
       city: this.city,
@@ -61,8 +61,8 @@ export class DatatableComponent implements OnInit {
   }
 
   deleteData(name, email, age, city) {
-    for(var i=0; i < this.data.length; i++) {
-      if(this.data[i].name === name && this.data[i].email === email && this.data[i].age === age && this.data[i].city === city) {
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].name === name && this.data[i].email === email && this.data[i].age === age && this.data[i].city === city) {
         this.data.splice(i, 1);
         this.mobileData.splice(i, 1);
       }
@@ -76,7 +76,7 @@ export class DatatableComponent implements OnInit {
     this.email = '';
     this.city = '';
     this.age = '';
-    // handle hideModal() variables 
+    // handle hideModal() letiables 
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
@@ -93,9 +93,9 @@ export class DatatableComponent implements OnInit {
 
   getMoreData() {
     this.page += 1;
-    var start = this.page * this.pagesize;
-    var end = (this.page + 1) * this.pagesize;
-    var moreData = this.data.slice(start, end);
+    const start = this.page * this.pagesize;
+    const end = (this.page + 1) * this.pagesize;
+    const moreData = this.data.slice(start, end);
     this.mobileData = this.mobileData.concat(moreData);
     this.count = this.mobileData.length;
   }

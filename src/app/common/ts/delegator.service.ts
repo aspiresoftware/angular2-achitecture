@@ -24,22 +24,39 @@ export class DelegatorService {
     this.server = _configuration.SERVER.host + _configuration.SERVER.apiUrl;
   }
 
-  public get<T> (data: {new(): T;}, url: string): Observable<T[]> {
+  public get(url: string) {
 
     // Prepare header
-    let headers: Headers = this.prepareHeader(data);
+    // let headers: Headers = this.prepareHeader(data);
 
     // Create a request option
-    let options = new RequestOptions({ headers: headers });
+    // let options = new RequestOptions({ headers: headers });
 
     url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
 
-    return this._http.get(url, options) // ...using post request
+    return this._http.get(url) // ...using get request
       .map((res:Response) => {
-          return <T[]>res.json();
+          return res.json();
       }) // ...and calling .json() on the response to return data
       .catch(this.handleError); //...errors if any
   }
+
+  // public get<T> (data: {new(): T;}, url: string): Observable<T[]> {
+
+  //   // Prepare header
+  //   let headers: Headers = this.prepareHeader(data);
+
+  //   // Create a request option
+  //   let options = new RequestOptions({ headers: headers });
+
+  //   url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
+
+  //   return this._http.get(url, options) // ...using post request
+  //     .map((res:Response) => {
+  //         return <T[]>res.json();
+  //     }) // ...and calling .json() on the response to return data
+  //     .catch(this.handleError); //...errors if any
+  // }
 
   public put<T> (data: {new(): T;}, url: string): Observable<T[]> {
 

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { DataTableModule } from "angular2-datatable";
+import { DataTableModule } from 'angular2-datatable';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import { UtilityService } from './common/ts/utility.service';
 import { AuthGuardService } from './common/ts/auth-guard.service';
 import { DatatableService } from './datatable/datatable.service';
 import { InfiniteScrollService } from './infinite-scroll/infinite-scroll.service';
+import { NavbarService } from './navbar/navbar.service';
 
 import { RouterModule } from '@angular/router';
 
@@ -26,6 +27,8 @@ import { HomeComponent } from './home/home.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { UpdateDatatableComponent } from './update-datatable/update-datatable.component';
 import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HamburgerComponent } from './hamburger/hamburger.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
     HomeComponent,
     DatatableComponent,
     UpdateDatatableComponent,
-    InfiniteScrollComponent
+    InfiniteScrollComponent,
+    NavbarComponent,
+    HamburgerComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,8 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
     UtilityService,
     AuthGuardService,
     DatatableService,
-    InfiniteScrollService
+    InfiniteScrollService,
+    NavbarService
   ],
   bootstrap: [AppComponent]
 })

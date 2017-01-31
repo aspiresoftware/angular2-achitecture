@@ -9,6 +9,7 @@ import { UserModel } from '../common/models/userModel.structure';
 import { LoginService } from './login.service';
 import { LocalStorageService } from '../common/ts/local-storage.service';
 import { UtilityService } from '../common/ts/utility.service';
+import { NavbarService } from '../navbar/navbar.service';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private localStorageService: LocalStorageService,
     private utilityService: UtilityService,
-    private configuration: Configuration
+    private configuration: Configuration,
+    private navbarService: NavbarService
   ) {
     this.loginForm = formBuilder.group({
       email: [null, Validators.required],
@@ -59,6 +61,9 @@ export class LoginComponent implements OnInit {
           this.localStorageService.setValue('email', user.email);
           this.localStorageService.setValue('accessToken', auth.accessToken);
           this.localStorageService.setValue('refreshToken', auth.refreshToken);
+          
+          // Change showNavBar flag to display flag on other pages
+          this.navbarService.showNavBar(true);
 
           this.utilityService.navigateToState(this.configuration.STATES.home);
       }, 
