@@ -21,8 +21,8 @@ export class DatatableService {
 
   getDummyData() {
     return this.http.get('app/data.json')
-    .map((res: Response) => res.json())
-    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   postData(newData) {

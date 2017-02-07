@@ -51,20 +51,20 @@ export class LoginComponent implements OnInit {
 
     const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel);
     const success = (result) => {
-          const auth = result.auth;
-          const user = result.user;
+      const auth = result.auth;
+      const user = result.user;
 
-          this.localStorageService.create();
-          this.localStorageService.setValue('id', user.id);
-          this.localStorageService.setValue('email', user.email);
-          this.localStorageService.setValue('accessToken', auth.accessToken);
-          this.localStorageService.setValue('refreshToken', auth.refreshToken);
-          
-          // Change showNavBar flag to display flag on other pages
-          this.navbarService.showNavBar(true);
+      this.localStorageService.create();
+      this.localStorageService.setValue('id', user.id);
+      this.localStorageService.setValue('email', user.email);
+      this.localStorageService.setValue('accessToken', auth.accessToken);
+      this.localStorageService.setValue('refreshToken', auth.refreshToken);
 
-          this.utilityService.navigateToState(this.configuration.STATES.home);
-      };
-      this.utilityService.handleRespone(operation, success);
+      // Change showNavBar flag to display flag on other pages
+      this.navbarService.showNavBar(true);
+
+      this.utilityService.navigateToState(this.configuration.STATES.home);
+    };
+    this.utilityService.handleRespone(operation, success);
   }
 }
