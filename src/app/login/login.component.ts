@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Configuration } from '../app.constants';
@@ -9,6 +9,8 @@ import { UserModel } from '../common/models/userModel.structure';
 import { LoginService } from './login.service';
 import { LocalStorageService } from '../common/ts/local-storage.service';
 import { UtilityService } from '../common/ts/utility.service';
+import { FcmInitializerService } from '../common/ts/fcm-initializer.service';
+
 import { NavbarService } from '../navbar/navbar.service';
 
 import { Observable } from 'rxjs/Rx';
@@ -17,7 +19,7 @@ import { Observable } from 'rxjs/Rx';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [LoginService]
+  providers: [LoginService, FcmInitializerService]
 })
 
 export class LoginComponent implements OnInit {
@@ -31,7 +33,8 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private utilityService: UtilityService,
     private configuration: Configuration,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    @Inject(FcmInitializerService) private fcmInitializerService: FcmInitializerService
   ) {
     this.loginForm = formBuilder.group({
       email: [null, Validators.required],
@@ -51,6 +54,7 @@ export class LoginComponent implements OnInit {
 
     const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel);
     const success = (result) => {
+          this.fcmInitializerService.initialiseAppForFcm();
           const auth = result.auth;
           const user = result.user;
 
@@ -59,12 +63,12 @@ export class LoginComponent implements OnInit {
           this.localStorageService.setValue('email', user.email);
           this.localStorageService.setValue('accessToken', auth.accessToken);
           this.localStorageService.setValue('refreshToken', auth.refreshToken);
-          
           // Change showNavBar flag to display flag on other pages
           this.navbarService.showNavBar(true);
 
           this.utilityService.navigateToState(this.configuration.STATES.home);
       };
+
       this.utilityService.handleRespone(operation, success);
   }
 }

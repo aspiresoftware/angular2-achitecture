@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../navbar/navbar.service';
 import { Router } from '@angular/router';
+import {NotificationSharedServiceService} from '../common/ts/shared-service/notification-shared-service.service';
 
 @Component({
   selector: 'app-hamburger',
@@ -10,10 +11,12 @@ import { Router } from '@angular/router';
 export class HamburgerComponent implements OnInit {
 
   showNavBar: boolean = false;
+  notificationCount;
 
   constructor(
     private navbarService: NavbarService,
-    private router: Router
+    private router: Router,
+    private notificationSharedServiceService: NotificationSharedServiceService
   ) {
 
     router.events.subscribe((url: any) => {
@@ -35,6 +38,14 @@ export class HamburgerComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  onUpdateNotification(notificationCount) {
+    this.notificationCount = notificationCount;
+  }
+
+  ngOnInit() {
+    this.notificationSharedServiceService.notificationAnnounced$
+    .subscribe((notification) => {this.onUpdateNotification(notification); });
+
+  }
 
 }

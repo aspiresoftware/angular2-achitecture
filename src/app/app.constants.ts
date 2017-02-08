@@ -19,4 +19,7 @@ export class Configuration {
         updateData: 'updateData/:name/:email/:age/:city',
         infiniteScroll: 'infiniteScroll'
     };
+    public ROUTES = {
+        notifications: '/notifications'
+    }
 }

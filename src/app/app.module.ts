@@ -19,6 +19,9 @@ import { AuthGuardService } from './common/ts/auth-guard.service';
 import { DatatableService } from './datatable/datatable.service';
 import { InfiniteScrollService } from './infinite-scroll/infinite-scroll.service';
 import { NavbarService } from './navbar/navbar.service';
+import {IsAlreadyLoggedinService} from './common/ts/is-already-loggedin.service';
+import {FcmInitializerService} from './common/ts/fcm-initializer.service';
+import {NotificationsService} from './notifications/notifications.service';
 
 // Aspect Modules
 import { LoggingAspect } from './aspects/logging.aspect';
@@ -33,6 +36,16 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
 import { NavbarComponent } from './navbar/navbar.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 
+import {FcmNotificationModule} from './fcm-notification/fcm-notification.module';
+import {EventListenerService} from './common/ts/event-listener.service';
+import {NotificationSharedServiceService} from './common/ts/shared-service/notification-shared-service.service';
+
+import { AngularFireModule } from 'angularfire2';
+import { NotificationsComponent } from './notifications/notifications.component';
+
+// Must export the config
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +56,8 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     UpdateDatatableComponent,
     InfiniteScrollComponent,
     NavbarComponent,
-    HamburgerComponent
+    HamburgerComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +66,8 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     DataTableModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    FcmNotificationModule,
   ],
   providers: [
     AppComponent,
@@ -61,10 +76,15 @@ import { HamburgerComponent } from './hamburger/hamburger.component';
     LocalStorageService,
     UtilityService,
     AuthGuardService,
+    IsAlreadyLoggedinService,
     DatatableService,
     InfiniteScrollService,
     LoggingAspect,
-    NavbarService
+    NavbarService,
+    EventListenerService,
+    FcmInitializerService,
+    NotificationsService,
+    NotificationSharedServiceService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 <nav *ngIf="showNavBar" class="navbar navbar-inverse custom-navbar">
   <div class="container">
     <div class="navbar-header">
+
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -14,6 +15,19 @@
         <li><a [routerLink]="['/datatable']">Client Side Pagination</a></li>
         <li><a [routerLink]="['/infiniteScroll']">Server Side Pagination</a></li>
         <!--<li><a href="#contact">Contact</a></li>-->
+      </ul>
+      <ul class="nav navbar-nav navbar-right hidden-sm hidden-xs">
+      <li><a class="dropdown-toggle" data-toggle="dropdown" (click)="resetNotificationCount()"><span class="fa fa-bell fa-lg "></span> 
+       <span class="badge badge-on-bell" *ngIf="notificationCount">{{notificationCount}}
+          </span>
+      </a>
+      <ul class="dropdown-menu scrollable-list" infinite-scroll 
+      [scrollWindow]="false"
+      (scrolled)="getMoreUnReadNotifications()">
+        <li *ngFor="let item of data" ><a [routerLink]="['/datatable']">Notification page client side</a></li>
+        <li *ngIf="!data || data.length === 0"><a >No Notification available</a></li>
+      </ul>
+      </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

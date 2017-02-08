@@ -1,30 +1,44 @@
 <nav *ngIf="showNavBar" class="main-menu">
   <!--<div>
-    <a class="logo" href="#"></a>
+    <a class="logo" ></a>
   </div>
   <div class="settings"></div>-->
   <div class="scrollbar" id="style-1">
     <ul>
       <li>
-        <a href="#">
+        <a [routerLink]="['/home']">
           <i class="fa fa-home fa-lg"></i>
           <span class="nav-text">Home</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <!--<li>
+        <a >
           <i class="fa fa-user fa-lg"></i>
           <span class="nav-text">Login</span>
         </a>
+      </li>-->
+      <li>
+        <a >
+         <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+          <span class="badge badge-on-bell" *ngIf="notificationCount">{{notificationCount}}
+          </span>
+          <span class="nav-text" [routerLink]="['/notifications']">Notification</span>
+        </a>
       </li>
       <li>
-        <a href="#">
-          <i class="fa fa-envelope-o fa-lg"></i>
-          <span class="nav-text">Contact</span>
+        <a [routerLink]="['/datatable']">
+          <i class="fa fa-users fa-lg"></i>
+          <span class="nav-text">Users</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/infiniteScroll']">
+          <i class="fa fa-bars fa-lg"></i>
+          <span class="nav-text">Services</span>
         </a>
       </li>
       <!--<li>
-        <a href="#">
+        <a >
           <i class="fa fa-heart-o fa-lg"></i>
           <span class="share">
             <div class="addthis_default_style addthis_32x32_style">
@@ -45,86 +59,86 @@
           <span class="nav-text"></span>
         </a>
       </li>-->
-      <li class="darkerlishadow">
-        <a href="#">
+      <!--<li class="darkerlishadow">
+        <a >
           <i class="fa fa-clock-o fa-lg"></i>
           <span class="nav-text">News</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-desktop fa-lg"></i>
           <span class="nav-text">Technology</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-plane fa-lg"></i>
           <span class="nav-text">Travel</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-shopping-cart"></i>
           <span class="nav-text">Shopping</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-microphone fa-lg"></i>
           <span class="nav-text">Film & Music</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-flask fa-lg"></i>
           <span class="nav-text">Web Tools</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-picture-o fa-lg"></i>
           <span class="nav-text">Art & Design</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-align-left fa-lg"></i>
           <span class="nav-text">Magazines</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-gamepad fa-lg"></i>
           <span class="nav-text">Games</span>
         </a>
       </li>
       <li class="darkerli">
-        <a href="#">
+        <a >
           <i class="fa fa-glass fa-lg"></i>
           <span class="nav-text">Life & Style</span>
         </a>
       </li>
       <li class="darkerlishadowdown">
-        <a href="#">
+        <a >
           <i class="fa fa-rocket fa-lg"></i>
           <span class="nav-text">Fun</span>
         </a>
-      </li>
+      </li>-->
     </ul>
     <ul class="logout">
       <li>
-        <a href="#">
-          <i class="fa fa-question-circle fa-lg"></i>
-          <span class="nav-text">Help</span>
+        <a >
+          <i class="fa fa-sign-out fa-lg"></i>
+          <span class="nav-text">Logout</span>
         </a>
       </li>
-      <li>
-        <a href="#">
+      <!--<li>
+        <a >
           <i class="fa fa-lightbulb-o fa-lg"></i>
           <span class="nav-text">BLOG</span>
         </a>
-      </li>
+      </li>-->
     </ul>
   </div>
 </nav>

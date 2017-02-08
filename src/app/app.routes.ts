@@ -7,19 +7,22 @@ import { HomeComponent } from './home/home.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { UpdateDatatableComponent } from './update-datatable/update-datatable.component';
 import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { AuthGuardService } from './common/ts/auth-guard.service';
+import { IsAlreadyLoggedinService } from './common/ts/is-already-loggedin.service';
 
 import { Configuration } from './app.constants';
 
 // Route Configuration
 export const AppRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+{ path: 'login', component: LoginComponent, canActivate:[IsAlreadyLoggedinService] },
+  { path: 'register', component: RegisterComponent, canActivate:[IsAlreadyLoggedinService] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
-  { path: 'datatable', component: DatatableComponent },
-  { path: 'updateData/:name/:email/:age/:city', component: UpdateDatatableComponent },
-  { path: 'infiniteScroll', component: InfiniteScrollComponent },
+  { path: 'datatable', component: DatatableComponent , canActivate: [AuthGuardService]},
+  { path: 'notifications', component:NotificationsComponent , canActivate: [AuthGuardService]},
+  { path: 'updateData/:name/:email/:age/:city', component: UpdateDatatableComponent , canActivate: [AuthGuardService]},
+  { path: 'infiniteScroll', component: InfiniteScrollComponent , canActivate: [AuthGuardService]},
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }
 ];
