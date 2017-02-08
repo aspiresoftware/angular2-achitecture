@@ -19,8 +19,8 @@ export class LocalStorageService {
   }
 
   public setValue(key, value) {
-    var objectKey = this.storageForKey(key);
-    if(typeof(value) !== 'boolean'){
+    const objectKey = this.storageForKey(key);
+    if (typeof (value) !== 'boolean') {
       this.storage[objectKey][key] = window.btoa(value);
     } else {
       this.storage[objectKey][key] = value;

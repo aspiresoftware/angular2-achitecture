@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import {Wove} from 'aspect.js-angular';
+import { Wove } from 'aspect.js-angular';
 
 import { Configuration } from '../../app.constants';
 
@@ -38,10 +38,10 @@ export class DelegatorService {
     url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
 
     return this._http.get(url) // ...using get request
-      .map((res:Response) => {
-          return res.json();
+      .map((res: Response) => {
+        return res.json();
       }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); //...errors if any
+      .catch(this.handleError); // ...errors if any
   }
 
   // public get<T> (data: {new(): T;}, url: string): Observable<T[]> {
@@ -61,55 +61,55 @@ export class DelegatorService {
   //     .catch(this.handleError); //...errors if any
   // }
 
-  public put<T> (data: {new(): T;}, url: string): Observable<T[]> {
+  public put<T>(data: { new (): T; }, url: string): Observable<T[]> {
 
     // Prepare header
-    let headers: Headers = this.prepareHeader(data);
+    const headers: Headers = this.prepareHeader(data);
 
     // Create a request option
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
 
     url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
 
     return this._http.put(url, data, options) // ...using post request
-      .map((res:Response) => {
-          return <T[]>res.json();
+      .map((res: Response) => {
+        return <T[]>res.json();
       }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); //...errors if any
+      .catch(this.handleError); // ...errors if any
   }
 
-  public delete<T> (data: {new(): T;}, url: string): Observable<T[]> {
+  public delete<T>(data: { new (): T; }, url: string): Observable<T[]> {
 
     // Prepare header
-    let headers: Headers = this.prepareHeader(data);
+    const headers: Headers = this.prepareHeader(data);
 
     // Create a request option
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
 
     url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
 
     return this._http.delete(url, options) // ...using post request
-      .map((res:Response) => {
-          return <T[]>res.json();
+      .map((res: Response) => {
+        return <T[]>res.json();
       }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); //...errors if any
+      .catch(this.handleError); // ...errors if any
   }
 
-  public post<T> (data: {new(): T;}, url: string): Observable<T[]> {
+  public post<T>(data: { new (): T; }, url: string): Observable<T[]> {
 
     // Prepare header
-    let headers: Headers = this.prepareHeader(data);
+    const headers: Headers = this.prepareHeader(data);
 
     // Create a request option
-    let options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });
 
     url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
 
     return this._http.post(url, data, options) // ...using post request
-      .map((res:Response) => {
-          return <T[]>res.json();
+      .map((res: Response) => {
+        return <T[]>res.json();
       }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); //...errors if any
+      .catch(this.handleError); // ...errors if any
   }
 
   private prepareHeader(data) {
@@ -121,7 +121,7 @@ export class DelegatorService {
       headers = new Headers({
         'Authorization': 'Basic ' + window.btoa(data.email + ':' + data.password)
       });
-      
+
     } else if (data.refreshToken) {
       // Bearer with refresh token
       headers = new Headers({
@@ -135,6 +135,6 @@ export class DelegatorService {
   }
 
   private handleError(error: Response) {
-      return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw(error.json().error || 'Server error');
   }
 }

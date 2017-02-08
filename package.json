@@ -6,11 +6,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "lint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
+    "tslint": "tslint \"src/**/*.ts\" --project src/tsconfig.json --type-check && tslint \"e2e/**/*.ts\" --project e2e/tsconfig.json --type-check",
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor"
   },
+  "precommit": [
+    "tslint"
+  ],
   "private": true,
   "dependencies": {
     "@angular/common": "^2.3.1",
@@ -25,10 +28,12 @@
     "angular2-fontawesome": "~0.8.0",
     "angular2-infinite-scroll": "^0.3.0",
     "angular2-logger": "^0.5.1",
+    "angularfire2": "^2.0.0-beta.7",
     "aspect.js": "^0.3.2",
     "aspect.js-angular": "0.0.9",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "firebase": "^3.6.9",
     "font-awesome": "~4.7.0",
     "jquery": "^3.1.1",
     "ng2-bootstrap": "^1.2.2",
@@ -52,6 +57,9 @@
     "karma-remap-istanbul": "^0.2.1",
     "node-sass": "^4.3.0",
     "protractor": "~4.0.13",
+    "stylelint": "^7.8.0",
+    "stylelint-scss": "^1.4.1",
+    "stylelint-config-standard": "^16.0.0",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
     "typescript": "~2.0.3"

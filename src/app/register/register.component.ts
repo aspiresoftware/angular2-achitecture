@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegisterModel } from '../common/models/registerModel.structure';
 import { UserModel } from '../common/models/userModel.structure';
 import { RegisterService } from './register.service';
+import { UtilityService } from '../common/ts/utility.service';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private utilityService: UtilityService
   ) {
     this.registerForm = formBuilder.group({
       email: [null, Validators.required],
@@ -33,22 +35,18 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  public submitForm(value: any){
+  public submitForm(value: any) {
     this.registerModel = new RegisterModel(
       value.email,
       value.password,
       value.confirmPassword
     );
-    
-    let operation:Observable<UserModel[]> = this.registerService.registerUser(this.registerModel);
-    operation.subscribe(
-      (user) => {
-          console.log(user);
-          let user1 = user;
-      }, 
-      err => {
-          console.log(err);
-      });
+
+    const operation: Observable<UserModel[]> = this.registerService.registerUser(this.registerModel);
+    const success = (user) => {
+      const user1 = user;
+    };
+    this.utilityService.handleRespone(operation, success);
   }
 
 }
