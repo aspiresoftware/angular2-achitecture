@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
 
     const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel);
     const success = (result) => {
+<<<<<<< HEAD
           this.fcmInitializerService.initialiseAppForFcm();
           const auth = result.auth;
           const user = result.user;
@@ -68,6 +69,24 @@ export class LoginComponent implements OnInit {
 
           this.utilityService.navigateToState(this.configuration.STATES.home);
       };
+
       this.utilityService.handleRespone(operation, success);
+=======
+      const auth = result.auth;
+      const user = result.user;
+
+      this.localStorageService.create();
+      this.localStorageService.setValue('id', user.id);
+      this.localStorageService.setValue('email', user.email);
+      this.localStorageService.setValue('accessToken', auth.accessToken);
+      this.localStorageService.setValue('refreshToken', auth.refreshToken);
+
+      // Change showNavBar flag to display flag on other pages
+      this.navbarService.showNavBar(true);
+
+      this.utilityService.navigateToState(this.configuration.STATES.home);
+    };
+    this.utilityService.handleRespone(operation, success);
+>>>>>>> 15aef46734b5c23b7a9dca1adc58105f137a7350
   }
 }
