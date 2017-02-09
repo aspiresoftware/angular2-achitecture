@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { InfiniteScrollService } from './infinite-scroll.service';
+import { ServicesListService } from './serviceslist.service';
 import { UtilityService } from '../common/ts/utility.service';
 
 import { Observable } from 'rxjs/Rx';
 
 @Component({
-  selector: 'app-infinite-scroll',
-  templateUrl: './infinite-scroll.component.html',
-  styleUrls: ['./infinite-scroll.component.css']
+  selector: 'app-serviceslist',
+  templateUrl: './serviceslist.component.html',
+  styleUrls: ['./serviceslist.component.css']
 })
-export class InfiniteScrollComponent implements OnInit {
+export class ServicesListComponent implements OnInit {
 
   // Variable Declarations
   currentPage;
@@ -21,7 +21,7 @@ export class InfiniteScrollComponent implements OnInit {
   page = 1;
 
   constructor(
-    private infiniteScrollService: InfiniteScrollService,
+    private infiniteScrollService: ServicesListService,
     private utilityService: UtilityService
   ) { }
 

@@ -3,7 +3,7 @@ import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
 @Injectable()
-export class InfiniteScrollService {
+export class ServicesListService {
 
   private actionUrl: {
     servicesUrl: string

@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { DatatableService } from './datatable.service';
+import { UsersService } from './users.service';
 
 describe('DatatableService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DatatableService]
+      providers: [UsersService]
     });
   });
 
-  it('should ...', inject([DatatableService], (service: DatatableService) => {
+  it('should ...', inject([UsersService], (service: UsersService) => {
     expect(service).toBeTruthy();
   }));
 });

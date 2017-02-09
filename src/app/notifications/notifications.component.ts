@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsService } from './notifications.service';
 import {EventListenerService} from '../common/ts/event-listener.service';
 import {FcmNotificationConstatntService} from '../fcm-notification/fcm-notification-constant.service';
-import { InfiniteScrollService } from '../infinite-scroll/infinite-scroll.service';
+import { ServicesListService } from '../serviceslist/serviceslist.service';
 import { Observable } from 'rxjs/Rx';
 import { UtilityService } from '../common/ts/utility.service';
 
@@ -25,7 +24,7 @@ export class NotificationsComponent implements OnInit {
   private NOTIFICATION_TYPE = this.fcmNotificationConstatntService.FCM_NOTIFICATION_EVENT;
 
   constructor(
-    private infiniteScrollService: NotificationsService,
+    private servicesListService: ServicesListService,
     private eventListenerService: EventListenerService,
     private fcmNotificationConstatntService: FcmNotificationConstatntService,
     private utilityService: UtilityService
@@ -34,7 +33,7 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const operation: Observable<any> = this.infiniteScrollService.getData(this.page);
+    const operation: Observable<any> = this.servicesListService.getData(this.page);
     const success = (res) => {
       this.currentPage = res.currentPage;
       this.hasNext = res.hasNext;
@@ -60,7 +59,7 @@ export class NotificationsComponent implements OnInit {
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
-      const operation: Observable<any> = this.infiniteScrollService.getData(this.page);
+      const operation: Observable<any> = this.servicesListService.getData(this.page);
       const success = (res) => {
         this.currentPage = res.currentPage;
         this.hasNext = res.hasNext;

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Configuration {
     public SERVER = {
-        host: 'https://192.168.2.10:8081/',
+        host: 'http://192.168.2.29:8081/',
         apiUrl: 'api/v1/'
     };
     public REST_URL = {
@@ -15,11 +15,15 @@ export class Configuration {
         login: 'login',
         register: 'register',
         home: 'home',
-        datatable: 'datatable',
+        users: 'users',
         updateData: 'updateData/:name/:email/:age/:city',
-        infiniteScroll: 'infiniteScroll'
+        serviceslist: 'serviceslist'
     };
     public ROUTES = {
-        notifications: '/notifications'
-    }
+        notifications: '/notifications',
+        login        : '/login',
+        register     : '/register',
+        users        : '/users',
+        serviceslist : '/serviceslist'
+    };
 }

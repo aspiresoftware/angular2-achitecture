@@ -7,3 +7,6 @@
     max-height: 300px;
     overflow-y: auto;
 }
+.btn-spacing {
+    margin-top: 10px;
+}
