@@ -52,22 +52,39 @@ export class LoginComponent implements OnInit {
       'password'
     );
 
-    const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel);
-    const success = (result) => {
-          this.fcmInitializerService.initialiseAppForFcm();
-          const auth = result.auth;
-          const user = result.user;
+    const loginSuccess = (result) => {
+      console.log(result);
+      const auth = result.auth;
+      const user = result.user;
 
-          this.localStorageService.create();
-          this.localStorageService.setValue('id', user.id);
-          this.localStorageService.setValue('email', user.email);
-          this.localStorageService.setValue('accessToken', auth.accessToken);
-          this.localStorageService.setValue('refreshToken', auth.refreshToken);
-          // Change showNavBar flag to display flag on other pages
-          this.navbarService.showNavBar(true);
+      this.localStorageService.create();
+      this.localStorageService.setValue('id', user.id);
+      this.localStorageService.setValue('email', user.email);
+      this.localStorageService.setValue('accessToken', auth.accessToken);
+      this.localStorageService.setValue('refreshToken', auth.refreshToken);
 
-          this.utilityService.navigateToState(this.configuration.STATES.home);
-      };
-      this.utilityService.handleRespone(operation, success);
+      this.utilityService.navigateToState(this.configuration.STATES.home);
+    };
+
+    const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel, loginSuccess);
+
+    // operation.subscribe(
+    //   (result) => {
+    //       console.log(result);
+    //       let auth = result.auth;
+    //       let user = result.user;
+
+    //       this.localStorageService.create();
+    //       this.localStorageService.setValue('id', user.id);
+    //       this.localStorageService.setValue('email', user.email);
+    //       this.localStorageService.setValue('accessToken', auth.accessToken);
+    //       this.localStorageService.setValue('refreshToken', auth.refreshToken);
+
+    //       this.utilityService.navigateToState(this.configuration.STATES.home);
+    //   }, 
+    //   err => {
+    //       console.log(err);
+    //       this.errorNotifierService.notifyError(err);
+    //   });
   }
 }

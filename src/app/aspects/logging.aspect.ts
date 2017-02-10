@@ -1,15 +1,20 @@
 import {Injectable} from '@angular/core';
 import {beforeMethod, afterMethod, onThrowOfMethod, Metadata} from 'aspect.js';
 
+import { ErrorNotifierService } from '../common/ts/error-notifier.service';
+
 @Injectable()
 export class LoggingAspect {
 
-  static invokeOnThrowOfMethod(err: Error) {
-    console.log(`%c Inside of the logger. ERROR : `
-    , 'color: red;', err);
+  constructor(
+    private errorNotifierService: ErrorNotifierService
+  ) {
   }
 
-  constructor() {
+  invokeOnThrowOfMethod(error: Error) {
+    console.log(`%c Inside of the logger. ERROR : `
+    , 'color: red;', error);
+    this.errorNotifierService.notifyError(error);
   }
 
   @beforeMethod({

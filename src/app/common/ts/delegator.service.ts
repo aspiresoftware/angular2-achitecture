@@ -7,6 +7,9 @@ import { Configuration } from '../../app.constants';
 
 import { UserModel } from '../../common/models/userModel.structure';
 import { RegisterModel } from '../../common/models/registerModel.structure';
+import { LocalStorageService } from './local-storage.service';
+import { UtilityService } from './utility.service';
+// import { LoggingAspect } from '../../aspects/logging.aspect';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -16,69 +19,58 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class DelegatorService {
 
-  private headers: Headers;
-  private server: string;
+  headers: Headers;
+  server: string;
+  lockedForRefresh = false;
+  delayRequests: Object = {};
+  runningRequests: Object = {};
+  requestCounter = 0;
 
   constructor(
     private _http: Http,
-    private _configuration: Configuration
+    private _configuration: Configuration,
+    private localStorageService: LocalStorageService,
+    private utility: UtilityService
   ) {
     this.server = _configuration.SERVER.host + _configuration.SERVER.apiUrl;
   }
 
-  // TODO : Need to remove this function once noopur will fix header stuff and uncomment below get function
-  public get(url: string) {
+  public http<T> (config) {
 
-    // Prepare header
-    // let headers: Headers = this.prepareHeader(data);
+    if (this.lockedForRefresh && !config.noDelay) {
+      this.storeDelayedRequest(config);
+    } else {
+      const requestId = this.nextRequestId();
+      let observer;
 
-    // Create a request option
-    // let options = new RequestOptions({ headers: headers });
+      if (config.method === 'get' || config.method === 'delete') {
+        observer = this._http[config.method](config.url, config.options); // ...using get/delete request
+      } else {
+        observer = this._http[config.method](config.url, config.data, config.options); // ...using post/put request
+      }
+      // observer.map((res: Response) => {
+      //   delete this.runningRequests[requestId];
+      //   return <T[]>res.json();
+      // }) // ...and calling .json() on the response to return data
+      // .catch((res: Response) => {
+      //   if (res.status !== 419) {
+      //     delete this.runningRequests[requestId];
+      //   }
+      //   return this.handleError(res);
+      // }); // ...errors if any
+      const tracker = {
+        requestId: requestId,
+        config: config
+      };
+      this.runningRequests[requestId] = tracker;
+      return this.handleRespone(<T>observer, tracker);
+    }
 
-    url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
-
-    return this._http.get(url) // ...using get request
-      .map((res: Response) => {
-        return res.json();
-      }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); // ...errors if any
   }
 
-  // public get<T> (data: {new(): T;}, url: string): Observable<T[]> {
+  public buildConfig(url, data, method, successCallback) {
 
-  //   // Prepare header
-  //   let headers: Headers = this.prepareHeader(data);
-
-  //   // Create a request option
-  //   let options = new RequestOptions({ headers: headers });
-
-  //   url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
-
-  //   return this._http.get(url, options) // ...using post request
-  //     .map((res:Response) => {
-  //         return <T[]>res.json();
-  //     }) // ...and calling .json() on the response to return data
-  //     .catch(this.handleError); //...errors if any
-  // }
-
-  public put<T>(data: { new (): T; }, url: string): Observable<T[]> {
-
-    // Prepare header
-    const headers: Headers = this.prepareHeader(data);
-
-    // Create a request option
-    const options = new RequestOptions({ headers: headers });
-
-    url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
-
-    return this._http.put(url, data, options) // ...using post request
-      .map((res: Response) => {
-        return <T[]>res.json();
-      }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); // ...errors if any
-  }
-
-  public delete<T>(data: { new (): T; }, url: string): Observable<T[]> {
+    const config: any = {};
 
     // Prepare header
     const headers: Headers = this.prepareHeader(data);
@@ -86,31 +78,48 @@ export class DelegatorService {
     // Create a request option
     const options = new RequestOptions({ headers: headers });
 
-    url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
+    const urlNeedsExpansion = !(/^\w+:\/\//.test(url)) && !config.domainAlreadyAdded;
 
-    return this._http.delete(url, options) // ...using post request
-      .map((res: Response) => {
-        return <T[]>res.json();
-      }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); // ...errors if any
+    if (urlNeedsExpansion) {
+      url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
+    }
+
+    config.url = url;
+    config.options = options;
+    config.data = data;
+    config.method = method;
+    config.successCallback = successCallback;
+    return config;
   }
 
-  public post<T>(data: { new (): T; }, url: string): Observable<T[]> {
+  public post<T> (data: {new(): T; }, url: string, customConfig, successCallback): Observable<T[]> {
 
-    // Prepare header
-    const headers: Headers = this.prepareHeader(data);
-
-    // Create a request option
-    const options = new RequestOptions({ headers: headers });
-
-    url = this._configuration.SERVER.host + this._configuration.SERVER.apiUrl + url;
-
-    return this._http.post(url, data, options) // ...using post request
-      .map((res: Response) => {
-        return <T[]>res.json();
-      }) // ...and calling .json() on the response to return data
-      .catch(this.handleError); // ...errors if any
+    const config = this.buildConfig(url, data, 'post', successCallback);
+    if (customConfig) {
+      config.noDelay = customConfig.noDelay;
+    }
+    return this.http<T>(config);
   }
+
+  public get<T> ( url: string, successCallback): Observable<T[]> {
+
+    const config = this.buildConfig(url, '', 'get', successCallback);
+    return this.http<T>(config);
+  }
+
+
+  public put<T> (data: {new(): T; }, url: string, successCallback): Observable<T[]> {
+
+    const config = this.buildConfig(url, data, 'put', successCallback);
+    return this.http<T>(config);
+  }
+
+  public delete<T> (data: {new(): T; }, url: string, successCallback): Observable<T[]> {
+
+    const config = this.buildConfig(url, '', 'delete', successCallback);
+    return this.http<T>(config);
+  }
+
 
   private prepareHeader(data) {
     // Set content type to JSON
@@ -121,20 +130,88 @@ export class DelegatorService {
       headers = new Headers({
         'Authorization': 'Basic ' + window.btoa(data.email + ':' + data.password)
       });
-
     } else if (data.refreshToken) {
       // Bearer with refresh token
       headers = new Headers({
-        'Authorization': 'Bearer ' + window.btoa(data.refreshToken)
+        'Authorization': 'Bearer ' + data.refreshToken
       });
     } else {
       // get access token from session
+      const accessToken = this.localStorageService.getValue('accessToken');
+      headers = new Headers({
+        'Authorization': 'Bearer ' + accessToken
+      });
     }
 
     return headers;
   }
 
-  private handleError(error: Response) {
-    return Observable.throw(error.json().error || 'Server error');
+  // private handleError(error: Response) {
+  //     return Observable.throw(error.json().errors || error);
+  // }
+
+  private handleRespone<T> (observer, tracker) {
+     return observer.subscribe(
+      (result: Response) => {
+        delete this.runningRequests[tracker.requestId];
+        tracker.config.successCallback(<T>result.json());
+      },
+      error => {
+        if (error.status !== 419) {
+          delete this.runningRequests[tracker.requestId];
+        }
+        this.utility.handleError(error);
+      });
+  }
+
+  public lockRequest() {
+    this.lockedForRefresh = true;
+  }
+
+  public unLockRequest() {
+    this.lockedForRefresh = false;
+    this.executeRunningRequests();
+    this.executeDelayedRequests();
+  }
+
+  public storeDelayedRequest(config) {
+    const requestId = this.nextRequestId();
+    const tracker = {
+      requestId: requestId,
+      config: config
+    };
+    this.delayRequests[requestId] = tracker;
+  }
+
+  private nextRequestId() {
+    // Increment requestCounter and return new number as a string
+    return this.requestCounter += 1;
+  }
+
+  private executeRunningRequests() {
+    for (const key in this.runningRequests) {
+      if (this.runningRequests.hasOwnProperty(key)) {
+        this.executeRequests(this.runningRequests[key]);
+        delete this.runningRequests[key];
+      }
+    }
+  }
+
+  private executeDelayedRequests() {
+    for (const key in this.delayRequests) {
+      if (this.delayRequests.hasOwnProperty(key)) {
+        this.executeRequests(this.delayRequests[key]);
+        delete this.runningRequests[key];
+      }
+    }
+  }
+
+  private executeRequests(request) {
+    const config = this.buildConfig(
+      request.config.url,
+      request.config.data,
+      request.config.method,
+      request.config.successCallback);
+    return this.http<any>(config);
   }
 }

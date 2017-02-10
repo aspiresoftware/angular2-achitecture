@@ -3,10 +3,11 @@ import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
 @Injectable()
-export class RegisterService {
+export class HomeService {
 
   private actionUrl: {
-    registerationUrl: string
+    EULAurl: string,
+    userUrl: string
   };
 
   constructor(
@@ -15,12 +16,12 @@ export class RegisterService {
   ) {
     this._configuration = _configuration;
     this.actionUrl = {
-      registerationUrl: _configuration.REST_URL.register
+      EULAurl: _configuration.REST_URL.eula,
+      userUrl: _configuration.REST_URL.user
     };
   }
 
-  public registerUser(user, successCallback) {
-    return this.delegatorService.post(user, this.actionUrl.registerationUrl, '', successCallback);
+  public getEULA(successCallback) {
+    return this.delegatorService.get(this.actionUrl.EULAurl, successCallback);
   }
-
 }

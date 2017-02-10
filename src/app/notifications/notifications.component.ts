@@ -33,8 +33,7 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const operation: Observable<any> = this.servicesListService.getData(this.page);
-    const success = (res) => {
+    const serviceListSuccess = (res) => {
       this.currentPage = res.currentPage;
       this.hasNext = res.hasNext;
       this.hasPrevious = res.hasPrevious;
@@ -42,7 +41,7 @@ export class NotificationsComponent implements OnInit {
       this.data = res.services;
       this.count = this.data.length;
     };
-    this.utilityService.handleRespone(operation, success);
+    const operation: Observable<any> = this.servicesListService.getData(this.page, serviceListSuccess);
 
      this.eventListenerService.onEvent(this.NOTIFICATION_TYPE.NOTIFICATION_TYPE_TEST,
     (data) => {this.onGetNotification(data); });
@@ -59,8 +58,7 @@ export class NotificationsComponent implements OnInit {
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
-      const operation: Observable<any> = this.servicesListService.getData(this.page);
-      const success = (res) => {
+      const serviceListPaginationSuccess = (res) => {
         this.currentPage = res.currentPage;
         this.hasNext = res.hasNext;
         this.hasPrevious = res.hasPrevious;
@@ -68,8 +66,7 @@ export class NotificationsComponent implements OnInit {
         this.data = this.data.concat(res.services);
         this.count = this.count + this.data.length;
       };
-      this.utilityService.handleRespone(operation, success);
-
+      const operation: Observable<any> = this.servicesListService.getData(this.page, serviceListPaginationSuccess);
     }
   }
 
