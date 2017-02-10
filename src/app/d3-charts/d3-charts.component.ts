@@ -5,7 +5,7 @@ declare const d3: any;
 @Component({
   selector: 'app-d3-charts',
   templateUrl: './d3-charts.component.html',
-  styleUrls: ['./d3-charts.component.css']
+  styleUrls: ['./d3-charts.component.scss']
 })
 export class D3ChartsComponent implements OnInit {
 
