@@ -1,4 +1,4 @@
-<nav *ngIf="showNavBar" class="navbar navbar-inverse custom-navbar">
+<nav class="navbar navbar-inverse custom-navbar">
   <div class="container">
     <div class="navbar-header">
 
@@ -10,12 +10,12 @@
         <span class="icon-bar"></span>
       </button>
       <a [routerLink]="['/home']" class="navbar-brand">Angular2 Demo</a>
-    <button *ngIf="showHeaderPart == '/datatable'" type="button" class="btn btn-primary btn-spacing hidden-md hidden-lg" (click)="generateEvent('showModalEvent')">Add User</button>
+    <button *ngIf="showHeaderPart == '/app/users'" type="button" class="btn btn-primary btn-spacing hidden-md hidden-lg" (click)="generateEvent('showModalEvent')">Add User</button>
 
     </div>
     <div id="navbar" class="collapse navbar-collapse">
 
-     <button *ngIf="showHeaderPart == '/users'" type="button" class="btn btn-primary btn-spacing hidden-sm hidden-xs" (click)="generateEvent('showModalEvent')">Add User</button>
+     <button *ngIf="showHeaderPart == '/app/users'" type="button" class="btn btn-primary btn-spacing hidden-sm hidden-xs" (click)="generateEvent('showModalEvent')">Add User</button>
 
     </div>
 

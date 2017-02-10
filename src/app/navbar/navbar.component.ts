@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
-import { NavbarService } from './navbar.service';
 import {EventListenerService} from '../common/ts/event-listener.service';
 import {NavbarEventHandlerService} from '../common/ts/shared-service/navbar-event-handler.service';
 
@@ -18,7 +17,6 @@ import {Configuration} from '../app.constants';
 })
 export class NavbarComponent implements OnInit {
 
-  showNavBar: boolean = false;
   pagination: any = {};
   data: any;
   notificationCount: number;
@@ -31,7 +29,6 @@ export class NavbarComponent implements OnInit {
   // and set it to @notificationCount
 
   constructor(
-    private navbarService: NavbarService,
     private utilityService: UtilityService,
     private configuration: Configuration,
     private route: Router,
@@ -41,12 +38,6 @@ export class NavbarComponent implements OnInit {
     @Inject(EventListenerService) private eventListenerService,
     @Inject(FcmNotificationConstatntService) private fcmNotificationConstatntService
   ) {
-    this.navbarService.showNavBarEmitter.subscribe((mode) => {
-      // mode will be null the first time it is created, so you need to igonore it when null
-      if (mode !== null) {
-        this.showNavBar = mode;
-      }
-    });
   }
 
   ngOnInit() {

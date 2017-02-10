@@ -31,10 +31,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of mf.data">
-            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]"><b>{{item.name}}</b></td>
-            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.email}}</td>
-            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.age}}</td>
-            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
+            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]"><b>{{item.name}}</b></td>
+            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.email}}</td>
+            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.age}}</td>
+            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
             <td><button type="button" class="btn btn-danger" (click)="deleteData(item.name, item.email, item.age, item.city)">x</button></td>
         </tr>
       </tbody>

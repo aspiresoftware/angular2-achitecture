@@ -16,6 +16,7 @@ export class UtilityService {
 
   public navigateToState(state) {
     this._router.navigate([state]);
+    return false;
   }
 
   public handleError(error) {

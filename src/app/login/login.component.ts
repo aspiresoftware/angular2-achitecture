@@ -11,7 +11,6 @@ import { LocalStorageService } from '../common/ts/local-storage.service';
 import { UtilityService } from '../common/ts/utility.service';
 import { FcmInitializerService } from '../common/ts/fcm-initializer.service';
 
-import { NavbarService } from '../navbar/navbar.service';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private utilityService: UtilityService,
     private configuration: Configuration,
-    private navbarService: NavbarService,
     @Inject(FcmInitializerService) private fcmInitializerService: FcmInitializerService
   ) {
     this.loginForm = formBuilder.group({
@@ -68,23 +66,6 @@ export class LoginComponent implements OnInit {
 
     const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel, loginSuccess);
 
-    // operation.subscribe(
-    //   (result) => {
-    //       console.log(result);
-    //       let auth = result.auth;
-    //       let user = result.user;
 
-    //       this.localStorageService.create();
-    //       this.localStorageService.setValue('id', user.id);
-    //       this.localStorageService.setValue('email', user.email);
-    //       this.localStorageService.setValue('accessToken', auth.accessToken);
-    //       this.localStorageService.setValue('refreshToken', auth.refreshToken);
-
-    //       this.utilityService.navigateToState(this.configuration.STATES.home);
-    //   }, 
-    //   err => {
-    //       console.log(err);
-    //       this.errorNotifierService.notifyError(err);
-    //   });
   }
 }

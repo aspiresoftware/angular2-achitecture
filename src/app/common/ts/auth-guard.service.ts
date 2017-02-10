@@ -3,6 +3,8 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { FcmNotificationHandlerService } from '../../fcm-notification/fcm-notification-handler.service';
 import { FcmInitializerService } from './fcm-initializer.service';
 import { LocalStorageService } from './local-storage.service';
+import {Configuration} from '../../app.constants';
+import {UtilityService} from './utility.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -10,6 +12,8 @@ export class AuthGuardService implements CanActivate {
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
+    private utilityService: UtilityService,
+    private configuration: Configuration,
     @Inject(FcmNotificationHandlerService) private fcmNotificationHandlerService,
     @Inject(FcmInitializerService) private fcmInitializerService) { }
 
@@ -25,7 +29,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['login']);
+    this.utilityService.navigateToState(this.configuration.STATES.login);
     return false;
   }
 }

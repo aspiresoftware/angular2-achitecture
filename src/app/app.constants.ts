@@ -14,18 +14,20 @@ export class Configuration {
         services: 'services'
     };
     public STATES = {
-        login: 'login',
-        register: 'register',
-        home: 'home',
-        users: 'users',
-        updateData: 'updateData/:name/:email/:age/:city',
-        serviceslist: 'serviceslist'
+        app: '/app',
+        login: '/login',
+        register: '/register',
+        home: '/app/home',
+        users: '/app/users',
+        updateUser: '/app/updateUser/:name/:email/:age/:city',
+        serviceslist: '/app/serviceslist'
     };
     public ROUTES = {
-        notifications: '/notifications',
+        notifications: '/app/notifications',
         login        : '/login',
         register     : '/register',
-        users        : '/users',
-        serviceslist : '/serviceslist'
+        users        : '/app/users',
+        serviceslist : '/app/serviceslist',
+        app          : '/app'
     };
 }

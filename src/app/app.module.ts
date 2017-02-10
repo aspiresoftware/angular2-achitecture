@@ -22,9 +22,8 @@ import { ErrorNotifierService } from './common/ts/error-notifier.service';
 import { AuthRefresherService } from './common/ts/auth-refresher.service';
 import { UsersService } from './users/users.service';
 import { ServicesListService } from './serviceslist/serviceslist.service';
-import { NavbarService } from './navbar/navbar.service';
-import {IsAlreadyLoggedinService} from './common/ts/is-already-loggedin.service';
-import {FcmInitializerService} from './common/ts/fcm-initializer.service';
+import { IsAlreadyLoggedinService } from './common/ts/is-already-loggedin.service';
+import { FcmInitializerService } from './common/ts/fcm-initializer.service';
 
 // Aspect Modules
 import { LoggingAspect } from './aspects/logging.aspect';
@@ -46,6 +45,7 @@ import {NavbarEventHandlerService} from './common/ts/shared-service/navbar-event
 
 import { AngularFireModule } from 'angularfire2';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { MainComponent } from './main/main.component';
 
 // Must export the config
 
@@ -61,7 +61,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ServicesListComponent,
     NavbarComponent,
     HamburgerComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +85,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
     DelegatorService,
     LoginService,
     AuthRefresherService,
-    NavbarService,
     EventListenerService,
     FcmInitializerService,
     NotificationSharedServiceService,
