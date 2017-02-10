@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { InfiniteScrollService } from './infinite-scroll.service';
+import { ServicesListService } from './serviceslist.service';
 
-describe('InfiniteScrollService', () => {
+describe('ServicesListService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [InfiniteScrollService]
+      providers: [ServicesListService]
     });
   });
 
-  it('should ...', inject([InfiniteScrollService], (service: InfiniteScrollService) => {
+  it('should ...', inject([ServicesListService], (service: ServicesListService) => {
     expect(service).toBeTruthy();
   }));
 });
