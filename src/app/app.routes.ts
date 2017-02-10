@@ -23,7 +23,7 @@ export const AppRoutes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [IsAlreadyLoggedinService] },
   { path: 'register', component: RegisterComponent, canActivate: [IsAlreadyLoggedinService] },
   {
-    path: 'app', component: MainComponent, canActivate: [AuthGuardService],
+    path: 'app', component: MainComponent,
     children: [
       {
         path: '', pathMatch: 'full', redirectTo: 'home'
