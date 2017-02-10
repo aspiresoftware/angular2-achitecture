@@ -2,26 +2,23 @@ import { Injectable } from '@angular/core';
 import {Wove} from 'aspect.js-angular';
 
 import { Router } from '@angular/router';
-
 import { LoggingAspect } from '../../aspects/logging.aspect';
+import { ErrorNotifierService } from './error-notifier.service';
 
 @Wove()
 @Injectable()
 export class UtilityService {
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private loggingAspect: LoggingAspect
   ) {}
 
   public navigateToState(state) {
     this._router.navigate([state]);
   }
 
-  public handleRespone(operation, success) {
-     operation.subscribe(success,
-      err => {
-          LoggingAspect.invokeOnThrowOfMethod(err);
-     });
+  public handleError(error) {
+    this.loggingAspect.invokeOnThrowOfMethod(error);
   }
-
 }

@@ -22,7 +22,19 @@ export class LoginService {
     };
   }
 
-  public authenticateUser(user) {
-    return this.delegatorService.post(user, this.actionUrl.authenticationUrl);
+  public authenticateUser(user, successCallback) {
+    return this.delegatorService.post(user, this.actionUrl.authenticationUrl, '', successCallback);
+  }
+
+  public refreshAccessToken(refreshToken, successCallback) {
+    const data: any  = {
+      grantType: 'accessToken',
+      refreshToken: refreshToken
+    };
+    const config  = {
+      noDelay: true
+    };
+
+    return this.delegatorService.post(data, this.actionUrl.authenticationUrl, config, successCallback);
   }
 }

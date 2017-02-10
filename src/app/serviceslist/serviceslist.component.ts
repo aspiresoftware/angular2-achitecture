@@ -26,8 +26,7 @@ export class ServicesListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const operation: Observable<any>  = this.infiniteScrollService.getData(this.page);
-    const success = (res) => {
+    const serviceSuccess = (res) => {
       this.currentPage = res.currentPage;
       this.hasNext = res.hasNext;
       this.hasPrevious = res.hasPrevious;
@@ -35,15 +34,13 @@ export class ServicesListComponent implements OnInit {
       this.data = res.services;
       this.count = this.data.length;
     };
-    this.utilityService.handleRespone(operation, success);
-
+    const operation: Observable<any>  = this.infiniteScrollService.getData(this.page, serviceSuccess);
   }
 
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
-      const operation: Observable<any> = this.infiniteScrollService.getData(this.page);
-      const success = (res) => {
+      const servicePaginationSuccess = (res) => {
         this.currentPage = res.currentPage;
         this.hasNext = res.hasNext;
         this.hasPrevious = res.hasPrevious;
@@ -51,7 +48,7 @@ export class ServicesListComponent implements OnInit {
         this.data = this.data.concat(res.services);
         this.count = this.data.length;
       };
-      this.utilityService.handleRespone(operation, success);
+      const operation: Observable<any> = this.infiniteScrollService.getData(this.page, servicePaginationSuccess);
     }
   }
 

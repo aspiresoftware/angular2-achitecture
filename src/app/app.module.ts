@@ -12,10 +12,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 import { Configuration } from './app.constants';
+import { LoginService } from './login/login.service';
 import { DelegatorService } from './common/ts/delegator.service';
 import { LocalStorageService } from './common/ts/local-storage.service';
 import { UtilityService } from './common/ts/utility.service';
 import { AuthGuardService } from './common/ts/auth-guard.service';
+import { HttpInterceptorService } from './common/ts/http-interceptor.service';
+import { ErrorNotifierService } from './common/ts/error-notifier.service';
+import { AuthRefresherService } from './common/ts/auth-refresher.service';
 import { UsersService } from './users/users.service';
 import { ServicesListService } from './serviceslist/serviceslist.service';
 import { NavbarService } from './navbar/navbar.service';
@@ -72,19 +76,23 @@ import { NotificationsComponent } from './notifications/notifications.component'
   providers: [
     AppComponent,
     Configuration,
-    DelegatorService,
     LocalStorageService,
     UtilityService,
-    AuthGuardService,
-    IsAlreadyLoggedinService,
-    UsersService,
     LoggingAspect,
+    ErrorNotifierService,
+    AuthGuardService,
+    DelegatorService,
+    LoginService,
+    AuthRefresherService,
     NavbarService,
     EventListenerService,
     FcmInitializerService,
     NotificationSharedServiceService,
     NavbarEventHandlerService,
-    ServicesListService
+    ServicesListService,
+    IsAlreadyLoggedinService,
+    UsersService,
+    // { provide: XHRBackend, useClass: HttpInterceptorService }
   ],
   bootstrap: [AppComponent]
 })

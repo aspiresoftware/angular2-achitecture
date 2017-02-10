@@ -119,8 +119,7 @@ export class NavbarComponent implements OnInit {
   }
 
   retrieveData() {
-    const operation: Observable<any> = this.servicesListService.getData(this.pagination.page);
-    const success = (res) => {
+    const serviceListSuccess = (res) => {
       this.pagination.currentPage = res.currentPage;
       this.pagination.hasNext = res.hasNext;
       this.pagination.hasPrevious = res.hasPrevious;
@@ -132,7 +131,7 @@ export class NavbarComponent implements OnInit {
       }
       this.pagination.count = this.data.length;
     };
-    this.utilityService.handleRespone(operation, success);
+    const operation: Observable<any> = this.servicesListService.getData(this.pagination.page, serviceListSuccess);
   }
 
 }

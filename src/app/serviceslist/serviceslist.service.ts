@@ -18,11 +18,11 @@ export class ServicesListService {
     };
   }
 
-  getData(page) {
+  getData(page, successCallback) {
     if (page <= 1) {
-      return this.delegatorService.get(this.actionUrl.servicesUrl);
+      return this.delegatorService.get(this.actionUrl.servicesUrl, successCallback);
     } else {
-      return this.delegatorService.get(this.actionUrl.servicesUrl + '?page=' + page);
+      return this.delegatorService.get(this.actionUrl.servicesUrl + '?page=' + page, successCallback);
     }
   }
 

@@ -9,6 +9,8 @@ export class Configuration {
     public REST_URL = {
         register: 'user',
         login: 'authenticate',
+        eula: 'eula/2',
+        user: 'users',
         services: 'services'
     };
     public STATES = {
