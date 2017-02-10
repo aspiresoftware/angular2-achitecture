@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DatatableService } from './datatable.service';
+import { UsersService } from './users.service';
+import {NavbarEventHandlerService} from '../common/ts/shared-service/navbar-event-handler.service';
 
 @Component({
-  selector: 'app-datatable',
-  templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class DatatableComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   // letiable Declarations
   data;
@@ -24,13 +25,25 @@ export class DatatableComponent implements OnInit {
   visibleAnimate = false;
 
   constructor(
-    private datatableService: DatatableService
-  ) { }
+    private usersService: UsersService,
+    private navbarEventHandlerService: NavbarEventHandlerService
+  ) {
+    this.navbarEventHandlerService.navbarEventAnnounced$
+    .subscribe((data) => {this.onNavbarEvent(data); });
+  }
+
+  onNavbarEvent(data) {
+    switch (data.eventType) {
+      case  'showModalEvent':
+        this.showModal(data);
+        break;
+    }
+  }
 
   ngOnInit() {
-    this.data = this.datatableService.getData();
+    this.data = this.usersService.getData();
     if (this.data.length <= 0) {
-      this.datatableService.getDummyData().subscribe(
+      this.usersService.getDummyData().subscribe(
         res => {
           this.data = res;
           localStorage.setItem('data', JSON.stringify(this.data));
@@ -55,7 +68,7 @@ export class DatatableComponent implements OnInit {
     };
     this.data.push(newData);
     this.mobileData.push(newData);
-    this.datatableService.postData(newData);
+    this.usersService.postData(newData);
     this.clearData();
     this.count = this.mobileData.length;
   }
@@ -67,7 +80,7 @@ export class DatatableComponent implements OnInit {
         this.mobileData.splice(i, 1);
       }
     }
-    this.datatableService.deleteData(name, email, age, city);
+    this.usersService.deleteData(name, email, age, city);
     this.count = this.mobileData.length;
   }
 
@@ -76,12 +89,12 @@ export class DatatableComponent implements OnInit {
     this.email = '';
     this.city = '';
     this.age = '';
-    // handle hideModal() letiables 
+    // handle hideModal() letiables
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
 
-  showModal() {
+  showModal(data) {
     this.visible = true;
     setTimeout(() => this.visibleAnimate = true);
   }

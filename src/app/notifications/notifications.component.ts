@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsService } from './notifications.service';
 import {EventListenerService} from '../common/ts/event-listener.service';
 import {FcmNotificationConstatntService} from '../fcm-notification/fcm-notification-constant.service';
-import { InfiniteScrollService } from '../infinite-scroll/infinite-scroll.service';
+import { ServicesListService } from '../serviceslist/serviceslist.service';
 import { Observable } from 'rxjs/Rx';
 import { UtilityService } from '../common/ts/utility.service';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css']
+  styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
 
@@ -25,7 +24,7 @@ export class NotificationsComponent implements OnInit {
   private NOTIFICATION_TYPE = this.fcmNotificationConstatntService.FCM_NOTIFICATION_EVENT;
 
   constructor(
-    private infiniteScrollService: NotificationsService,
+    private servicesListService: ServicesListService,
     private eventListenerService: EventListenerService,
     private fcmNotificationConstatntService: FcmNotificationConstatntService,
     private utilityService: UtilityService
@@ -34,8 +33,7 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const operation: Observable<any> = this.infiniteScrollService.getData(this.page);
-    const success = (res) => {
+    const serviceListSuccess = (res) => {
       this.currentPage = res.currentPage;
       this.hasNext = res.hasNext;
       this.hasPrevious = res.hasPrevious;
@@ -43,7 +41,7 @@ export class NotificationsComponent implements OnInit {
       this.data = res.services;
       this.count = this.data.length;
     };
-    this.utilityService.handleRespone(operation, success);
+    const operation: Observable<any> = this.servicesListService.getData(this.page, serviceListSuccess);
 
      this.eventListenerService.onEvent(this.NOTIFICATION_TYPE.NOTIFICATION_TYPE_TEST,
     (data) => {this.onGetNotification(data); });
@@ -60,8 +58,7 @@ export class NotificationsComponent implements OnInit {
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
-      const operation: Observable<any> = this.infiniteScrollService.getData(this.page);
-      const success = (res) => {
+      const serviceListPaginationSuccess = (res) => {
         this.currentPage = res.currentPage;
         this.hasNext = res.hasNext;
         this.hasPrevious = res.hasPrevious;
@@ -69,8 +66,7 @@ export class NotificationsComponent implements OnInit {
         this.data = this.data.concat(res.services);
         this.count = this.count + this.data.length;
       };
-      this.utilityService.handleRespone(operation, success);
-
+      const operation: Observable<any> = this.servicesListService.getData(this.page, serviceListPaginationSuccess);
     }
   }
 

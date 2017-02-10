@@ -7,6 +7,7 @@ export class LocalStorageService {
     user: {},
     auth: {}
   };
+  private isStorage = false;
 
   constructor() {
   }
@@ -14,7 +15,7 @@ export class LocalStorageService {
   public create() {
     localStorage.setItem('auth', JSON.stringify(this.storage.auth));
     localStorage.setItem('user', JSON.stringify(this.storage.user));
-
+    this.isStorage = true;
     return localStorage;
   }
 
@@ -28,7 +29,26 @@ export class LocalStorageService {
     localStorage.setItem(objectKey, JSON.stringify(this.storage[objectKey]));
   }
 
-  public storageForKey(key) {
+  public getValue(key): any {
+    // let value = this.storage[objectKey][key].getitem();
+    if (this.isLocalStorage()) {
+      const objectKey = this.storageForKey(key);
+      const value = JSON.parse(localStorage[objectKey])[key];
+      if (typeof(value) !== 'boolean'){
+        return window.atob(JSON.parse(localStorage[objectKey])[key]);
+      } else {
+        return value;
+      }
+    } else {
+      return;
+    }
+  }
+
+  public isLocalStorage() {
+    return this.isStorage;
+  }
+
+  private storageForKey(key) {
     switch (key) {
       case 'accessToken':
         return 'auth';

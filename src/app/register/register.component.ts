@@ -5,6 +5,7 @@ import { RegisterModel } from '../common/models/registerModel.structure';
 import { UserModel } from '../common/models/userModel.structure';
 import { RegisterService } from './register.service';
 import { UtilityService } from '../common/ts/utility.service';
+import { Configuration } from '../app.constants';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private registerService: RegisterService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private configuration: Configuration
   ) {
     this.registerForm = formBuilder.group({
       email: [null, Validators.required],
@@ -42,11 +44,12 @@ export class RegisterComponent implements OnInit {
       value.confirmPassword
     );
 
-    const operation: Observable<UserModel[]> = this.registerService.registerUser(this.registerModel);
-    const success = (user) => {
-      const user1 = user;
+    const registerSuccess = (user) => {
+      console.log(user);
+      this.utilityService.navigateToState(this.configuration.STATES.login);
     };
-    this.utilityService.handleRespone(operation, success);
+
+    let operation: Observable<UserModel[]> = this.registerService.registerUser(this.registerModel, registerSuccess);
   }
 
 }

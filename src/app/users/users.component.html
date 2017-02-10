@@ -1,8 +1,7 @@
 <div class="container padding-on-top padding-on-left" (window:resize)="onResize($event)">
 
   <div class="well">
-    <div class="navbar-brand custom-navbar-brand">Angular2 Datatable</div>
-    <button type="button" class="btn btn-primary" (click)="showModal()">Add Data</button>
+    <h4> User data </h4>
   </div>
 
   <div class="text-center" *ngIf="data.length <= 0">
@@ -10,7 +9,7 @@
   </div>
 
   <div class="table-responsive desktop" *ngIf="data.length > 0">
-    <table class="table table-striped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <table class="table table-full-stripped" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="5">
       <thead>
         <tr>
             <th style="width: 20%">
@@ -32,10 +31,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of mf.data">
-            <td [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">{{item.name}}</td>
-            <td [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">{{item.email}}</td>
-            <td [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">{{item.age}}</td>
-            <td [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
+            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]"><b>{{item.name}}</b></td>
+            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.email}}</td>
+            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.age}}</td>
+            <td [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
             <td><button type="button" class="btn btn-danger" (click)="deleteData(item.name, item.email, item.age, item.city)">x</button></td>
         </tr>
       </tbody>
@@ -46,13 +45,13 @@
             </td>
         </tr>
       </tfoot>
-    </table>    
+    </table>
   </div>
 
   <div class="mobile" *ngIf="data.length > 0 && windowWidth < 769" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
     <h1 class="title well"><small>{{count}}</small></h1>
     <div class="container user-block" *ngFor="let item of mobileData">
-      <div class="col-xs-10 user-detail" [routerLink]="['/updateData', item.name, item.email, item.age, item.city]">
+      <div class="col-xs-10 user-detail" [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">
         <b>Name:</b> {{item.name}}<br>
         <b>Email:</b> {{item.email}}<br>
         <b>Age:</b> {{item.age}}<br>

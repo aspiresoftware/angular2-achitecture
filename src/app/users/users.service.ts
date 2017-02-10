@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class DatatableService {
+export class UsersService {
 
   constructor(
     private http: Http

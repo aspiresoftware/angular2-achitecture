@@ -1,0 +1,36 @@
+div.table-responsive {
+  border: 1px solid #000;
+  margin-bottom: 20px;
+}
+
+.title {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 50px;
+  color: #fff;
+  position: fixed;
+  right: 0;
+  z-index: 1;
+}
+
+.title small {
+  color: #eaeaea;
+}
+
+
+.desktop {
+  display: block;
+}
+
+.mobile {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+    margin-bottom: 20px;
+  }
+}

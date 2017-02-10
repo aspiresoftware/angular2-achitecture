@@ -19,8 +19,8 @@ export class RegisterService {
     };
   }
 
-  public registerUser(user) {
-    return this.delegatorService.post(user, this.actionUrl.registerationUrl);
+  public registerUser(user, successCallback) {
+    return this.delegatorService.post(user, this.actionUrl.registerationUrl, '', successCallback);
   }
 
 }

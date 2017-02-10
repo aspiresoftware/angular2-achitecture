@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Configuration } from '../app.constants';
 
-import { DatatableService } from '../datatable/datatable.service';
+import { UsersService } from '../users/users.service';
 import { UtilityService } from '../common/ts/utility.service';
 
 @Component({
-  selector: 'app-update-datatable',
-  templateUrl: './update-datatable.component.html',
-  styleUrls: ['./update-datatable.component.css']
+  selector: 'app-update-user',
+  templateUrl: './update-user.component.html',
+  styleUrls: ['./update-user.component.scss']
 })
-export class UpdateDatatableComponent implements OnInit {
+export class UpdateUserComponent implements OnInit {
 
   // Variable Declarations
   name;
@@ -21,7 +21,7 @@ export class UpdateDatatableComponent implements OnInit {
   oldData;
 
   constructor(
-    private datatableService: DatatableService,
+    private usersService: UsersService,
     private route: ActivatedRoute,
     private router: Router,
     private utilityService: UtilityService,
@@ -43,9 +43,9 @@ export class UpdateDatatableComponent implements OnInit {
       city: this.city,
       age: this.age
     };
-    this.datatableService.putData(this.oldData, updatedData);
+    this.usersService.putData(this.oldData, updatedData);
     // this.router.navigate(['/datatable']);
-    this.utilityService.navigateToState(this.configuration.STATES.datatable);
+    this.utilityService.navigateToState(this.configuration.STATES.users);
   }
 
 }

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavbarService } from '../navbar/navbar.service';
 import { Router } from '@angular/router';
 import {NotificationSharedServiceService} from '../common/ts/shared-service/notification-shared-service.service';
-
+import {Configuration} from '../app.constants';
 @Component({
   selector: 'app-hamburger',
   templateUrl: './hamburger.component.html',
-  styleUrls: ['./hamburger.component.css']
+  styleUrls: ['./hamburger.component.scss']
 })
 export class HamburgerComponent implements OnInit {
 
@@ -16,13 +16,15 @@ export class HamburgerComponent implements OnInit {
   constructor(
     private navbarService: NavbarService,
     private router: Router,
+    private configuration: Configuration,
     private notificationSharedServiceService: NotificationSharedServiceService
   ) {
-
+    // TODO: make one common code for route change
     router.events.subscribe((url: any) => {
       if (localStorage.getItem('auth') && localStorage.getItem('user')) {
         // logged in so true
-        if (url.url === '/login' || url.url === '/register') {
+        if (url.url === this.configuration.ROUTES.login ||
+         url.url === this.configuration.ROUTES.register) {
           this.navbarService.showNavBar(false);
         } else {
           this.navbarService.showNavBar(true);

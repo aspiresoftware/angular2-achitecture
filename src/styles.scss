@@ -1,29 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300');
+@import url('./color.scss');
 
 .padding-on-top {
-    padding-top: 70px;
+  padding-top: 70px;
 }
 
 @media (max-width: 1285px) {
-    .padding-on-left {
-        padding-left: 60px;
-    }
+  .padding-on-left {
+    padding-left: 60px;
+  }
 }
 @media (max-width: 768px) {
-    .padding-on-left {
-        padding-left: 70px;
-    }
+  .padding-on-left {
+    padding-left: 70px;
+  }
 }
 @media (min-width: 768px) {
-    .navbar {
-        border-radius: 0;
-    }
+  .navbar {
+    border-radius: 0;
+  }
 }
 
 .badge-on-bell {
-    position: absolute;
-    font-size: 8px;
-    top: 6px;
-    left: 23px;
+  font-size: 8px;
+  left: 23px;
+  position: absolute;
+  top: 6px;
+}
+
+thead {
+  background: #d9d9d9;
+}
+
+thead a {
+  color: #4f4f4f;
+}
+
+.table-full-stripped tbody tr {
+  background: #f3f3f3;
 }

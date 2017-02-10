@@ -2,8 +2,10 @@ import { Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import { NavbarService } from './navbar.service';
 import {EventListenerService} from '../common/ts/event-listener.service';
+import {NavbarEventHandlerService} from '../common/ts/shared-service/navbar-event-handler.service';
+
 import {FcmNotificationConstatntService} from '../fcm-notification/fcm-notification-constant.service';
-import { InfiniteScrollService } from '../infinite-scroll/infinite-scroll.service';
+import { ServicesListService } from '../serviceslist/serviceslist.service';
 import {NotificationSharedServiceService} from '../common/ts/shared-service/notification-shared-service.service';
 import { Observable } from 'rxjs/Rx';
 import { UtilityService } from '../common/ts/utility.service';
@@ -12,7 +14,7 @@ import {Configuration} from '../app.constants';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
 
@@ -20,6 +22,8 @@ export class NavbarComponent implements OnInit {
   pagination: any = {};
   data: any;
   notificationCount: number;
+  showHeaderPart: string;
+  headerTitle: string;
   private NOTIFICATION_TYPE = this.fcmNotificationConstatntService.FCM_NOTIFICATION_EVENT;
 
 
@@ -31,7 +35,8 @@ export class NavbarComponent implements OnInit {
     private utilityService: UtilityService,
     private configuration: Configuration,
     private route: Router,
-    private infiniteScrollService: InfiniteScrollService,
+    private servicesListService: ServicesListService,
+    private navbarEventHandlerService: NavbarEventHandlerService,
     private notificationSharedServiceService: NotificationSharedServiceService,
     @Inject(EventListenerService) private eventListenerService,
     @Inject(FcmNotificationConstatntService) private fcmNotificationConstatntService
@@ -48,7 +53,22 @@ export class NavbarComponent implements OnInit {
     this.eventListenerService.onEvent(this.NOTIFICATION_TYPE.NOTIFICATION_TYPE_TEST,
     (data) => {this.onGetNotification(data); });
     this.getMoreUnReadNotifications();
+    this.route.events.subscribe((url: any) => {
+      if (localStorage.getItem('auth') && localStorage.getItem('user')) {
+        // logged in so true
+          this.showHeaderPart = url.url;
+          this.headerTitle = this.getHeaderTitle(url.url);
+      }
+    });
   }
+
+  getHeaderTitle(locationUrl) {
+    const url = locationUrl.split('/')[1];
+    const title = url.substr(0, 1);
+    const titleCovered = url.substr(1, url.length);
+    return title + titleCovered;
+  }
+
 
   resetNotificationCount() {
     this.setBadge(0);
@@ -93,9 +113,13 @@ export class NavbarComponent implements OnInit {
     (this.notificationCount);
   }
 
+  generateEvent(eventType, data) {
+    this.navbarEventHandlerService
+    .announceNavbarEventNotification(eventType, data);
+  }
+
   retrieveData() {
-    const operation: Observable<any> = this.infiniteScrollService.getData(this.pagination.page);
-    const success = (res) => {
+    const serviceListSuccess = (res) => {
       this.pagination.currentPage = res.currentPage;
       this.pagination.hasNext = res.hasNext;
       this.pagination.hasPrevious = res.hasPrevious;
@@ -107,7 +131,7 @@ export class NavbarComponent implements OnInit {
       }
       this.pagination.count = this.data.length;
     };
-    this.utilityService.handleRespone(operation, success);
+    const operation: Observable<any> = this.servicesListService.getData(this.pagination.page, serviceListSuccess);
   }
 
 }

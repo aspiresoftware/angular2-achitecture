@@ -3,27 +3,25 @@ import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
 @Injectable()
-export class InfiniteScrollService {
+export class HomeService {
 
   private actionUrl: {
-    servicesUrl: string
+    EULAurl: string,
+    userUrl: string
   };
 
   constructor(
     private _configuration: Configuration,
     private delegatorService: DelegatorService
   ) {
+    this._configuration = _configuration;
     this.actionUrl = {
-      servicesUrl: this._configuration.REST_URL.services
+      EULAurl: _configuration.REST_URL.eula,
+      userUrl: _configuration.REST_URL.user
     };
   }
 
-  getData(page) {
-    if (page <= 1) {
-      return this.delegatorService.get(this.actionUrl.servicesUrl);
-    } else {
-      return this.delegatorService.get(this.actionUrl.servicesUrl + '?page=' + page);
-    }
+  public getEULA(successCallback) {
+    return this.delegatorService.get(this.actionUrl.EULAurl, successCallback);
   }
-
 }
