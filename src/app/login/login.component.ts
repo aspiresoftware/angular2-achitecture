@@ -14,13 +14,15 @@ import { FcmInitializerService } from '../common/ts/fcm-initializer.service';
 
 import { Observable } from 'rxjs/Rx';
 
+/**
+ * Login Componenet
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   providers: [LoginService, FcmInitializerService]
 })
-
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
     private configuration: Configuration,
     @Inject(FcmInitializerService) private fcmInitializerService: FcmInitializerService
   ) {
+    // validations for login form
     this.loginForm = formBuilder.group({
       email: [null, Validators.required],
       password: [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(12)])]
@@ -44,6 +47,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * submit form
+   *
+   * @param  {any} value
+   */
   submitForm(value: any) {
     this.loginModel = new LoginModel(
       value.email,
@@ -51,6 +59,12 @@ export class LoginComponent implements OnInit {
       'password'
     );
 
+    /**
+     * Login success
+     * Create localstorage and set tokens in it
+     *
+     * @param  {} result
+     */
     const loginSuccess = (result) => {
       console.log(result);
       const auth = result.auth;
@@ -66,7 +80,5 @@ export class LoginComponent implements OnInit {
     };
 
     const operation: Observable<any> = this.loginService.authenticateUser(this.loginModel, loginSuccess);
-
-
   }
 }

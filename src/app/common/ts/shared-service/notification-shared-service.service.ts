@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+/**
+ * 
+ */
 @Injectable()
 export class NotificationSharedServiceService {
 
@@ -9,7 +12,9 @@ export class NotificationSharedServiceService {
 
   notificationAnnounced$ = this.notificationAnnouncedSource.asObservable();
 
-
+  /**
+   * @param  {} notification
+   */
   announceNotification(notification) {
     this.notificationAnnouncedSource.next(notification);
   }

@@ -6,6 +6,9 @@ import { Configuration } from '../app.constants';
 import { UsersService } from '../users/users.service';
 import { UtilityService } from '../common/ts/utility.service';
 
+/**
+ * Update User Componenet
+ */
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
@@ -37,6 +40,9 @@ export class UpdateUserComponent implements OnInit {
     this.city = this.oldData.city;
   }
 
+  /**
+   * Update user
+   */
   putData() {
     const updatedData = {
       name: this.name,

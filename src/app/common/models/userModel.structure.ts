@@ -1,3 +1,6 @@
+/**
+ * User Model
+ */
 export class UserModel {
     constructor(
         public id: String,

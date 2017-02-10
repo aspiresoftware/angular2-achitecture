@@ -5,6 +5,9 @@ import { ServicesListService } from '../serviceslist/serviceslist.service';
 import { Observable } from 'rxjs/Rx';
 import { UtilityService } from '../common/ts/utility.service';
 
+/**
+ * Notification Componenet
+ */
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -28,8 +31,6 @@ export class NotificationsComponent implements OnInit {
     private eventListenerService: EventListenerService,
     private fcmNotificationConstatntService: FcmNotificationConstatntService,
     private utilityService: UtilityService
-
-
   ) { }
 
   ngOnInit() {
@@ -47,6 +48,11 @@ export class NotificationsComponent implements OnInit {
     (data) => {this.onGetNotification(data); });
   }
 
+  /**
+   * Get Notification
+   * 
+   * @param  {} data
+   */
   onGetNotification(data) {
       console.log('Navbar Notification rec0eieved', data);
       if (!this.data) {
@@ -55,6 +61,9 @@ export class NotificationsComponent implements OnInit {
       this.data.unshift(data.detail.data);
   }
 
+  /**
+   * Get more notification
+   */
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;
@@ -69,6 +78,4 @@ export class NotificationsComponent implements OnInit {
       const operation: Observable<any> = this.servicesListService.getData(this.page, serviceListPaginationSuccess);
     }
   }
-
-
 }

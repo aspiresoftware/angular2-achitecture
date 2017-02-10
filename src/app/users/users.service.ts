@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
+/**
+ * User service
+ */
 @Injectable()
 export class UsersService {
 
@@ -9,6 +12,9 @@ export class UsersService {
     private http: Http
   ) { }
 
+  /**
+   * Get data
+   */
   getData() {
     const data = JSON.parse(localStorage.getItem('data'));
 
@@ -25,6 +31,9 @@ export class UsersService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  /**
+   * Add user
+   */
   postData(newData) {
     let data = JSON.parse(localStorage.getItem('data'));
 
@@ -36,6 +45,9 @@ export class UsersService {
     localStorage.setItem('data', JSON.stringify(data));
   }
 
+  /**
+   * Remove user
+   */
   deleteData(name, email, age, city) {
     const data = JSON.parse(localStorage.getItem('data'));
 
@@ -48,6 +60,9 @@ export class UsersService {
     localStorage.setItem('data', JSON.stringify(data));
   }
 
+  /**
+   * Edit user
+   */
   putData(oldData, updatedData) {
     const data = JSON.parse(localStorage.getItem('data'));
     const oldDataAge = Number(oldData.age);

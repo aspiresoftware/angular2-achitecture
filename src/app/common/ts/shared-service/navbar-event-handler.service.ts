@@ -4,9 +4,11 @@ import {Router} from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import {Configuration} from '../../../app.constants';
 
+/**
+ * 
+ */
 @Injectable()
 export class NavbarEventHandlerService {
-
 
   // Observable string sources
   private navbarEventSource = new Subject();
@@ -16,8 +18,11 @@ export class NavbarEventHandlerService {
     private configuration: Configuration) {
   }
 
+  /**
+   * @param  {} eventType
+   * @param  {} notification
+   */
   announceNavbarEventNotification(eventType, notification) {
     this.navbarEventSource.next({eventType: eventType, notification: notification});
   }
-
 }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
+/**
+ * Home service
+ */
 @Injectable()
 export class HomeService {
 
@@ -21,6 +24,11 @@ export class HomeService {
     };
   }
 
+  /**
+   * Get Eula
+   * 
+   * @param  {} successCallback
+   */
   public getEULA(successCallback) {
     return this.delegatorService.get(this.actionUrl.EULAurl, successCallback);
   }

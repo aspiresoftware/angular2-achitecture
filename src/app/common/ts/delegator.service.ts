@@ -7,14 +7,18 @@ import { Configuration } from '../../app.constants';
 
 import { UserModel } from '../../common/models/userModel.structure';
 import { RegisterModel } from '../../common/models/registerModel.structure';
+
 import { LocalStorageService } from './local-storage.service';
 import { UtilityService } from './utility.service';
-// import { LoggingAspect } from '../../aspects/logging.aspect';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+/**
+ * This class handles REST interaction with server, send REST to server and recieve response from server
+ * 
+ */
 @Wove()
 @Injectable()
 export class DelegatorService {
@@ -35,6 +39,12 @@ export class DelegatorService {
     this.server = _configuration.SERVER.host + _configuration.SERVER.apiUrl;
   }
 
+  /**
+   * Get request config and send request to server
+   * Return observer
+   * 
+   * @param  {} config
+   */
   public http<T> (config) {
 
     if (this.lockedForRefresh && !config.noDelay) {
@@ -48,26 +58,26 @@ export class DelegatorService {
       } else {
         observer = this._http[config.method](config.url, config.data, config.options); // ...using post/put request
       }
-      // observer.map((res: Response) => {
-      //   delete this.runningRequests[requestId];
-      //   return <T[]>res.json();
-      // }) // ...and calling .json() on the response to return data
-      // .catch((res: Response) => {
-      //   if (res.status !== 419) {
-      //     delete this.runningRequests[requestId];
-      //   }
-      //   return this.handleError(res);
-      // }); // ...errors if any
+
+      // store request's config and store it in runningRequests
       const tracker = {
         requestId: requestId,
         config: config
       };
       this.runningRequests[requestId] = tracker;
+
       return this.handleRespone(<T>observer, tracker);
     }
 
   }
-
+  /**
+   * Build config object of request
+   * 
+   * @param  {} url
+   * @param  {} data
+   * @param  {} method
+   * @param  {} successCallback
+   */
   public buildConfig(url, data, method, successCallback) {
 
     const config: any = {};
@@ -78,6 +88,7 @@ export class DelegatorService {
     // Create a request option
     const options = new RequestOptions({ headers: headers });
 
+    // check if usrl need expansion or not
     const urlNeedsExpansion = !(/^\w+:\/\//.test(url)) && !config.domainAlreadyAdded;
 
     if (urlNeedsExpansion) {
@@ -89,9 +100,19 @@ export class DelegatorService {
     config.data = data;
     config.method = method;
     config.successCallback = successCallback;
+
     return config;
   }
 
+  /**
+   * Post requets
+   * 
+   * @param  {} data
+   * @param  {} url
+   * @param  {} customConfig
+   * @param  {} successCallback
+   * @returns Observable
+   */
   public post<T> (data: {new(): T; }, url: string, customConfig, successCallback): Observable<T[]> {
 
     const config = this.buildConfig(url, data, 'post', successCallback);
@@ -101,27 +122,57 @@ export class DelegatorService {
     return this.http<T>(config);
   }
 
+  /**
+   * Get requets
+   * 
+   * @param  {} url
+   * @param  {} customConfig
+   * @param  {} successCallback
+   * @returns Observable
+   */
   public get<T> ( url: string, successCallback): Observable<T[]> {
 
     const config = this.buildConfig(url, '', 'get', successCallback);
     return this.http<T>(config);
   }
 
-
+  /**
+   * Post requets
+   * 
+   * @param  {} data
+   * @param  {} url
+   * @param  {} customConfig
+   * @param  {} successCallback
+   * @returns Observable
+   */
   public put<T> (data: {new(): T; }, url: string, successCallback): Observable<T[]> {
 
     const config = this.buildConfig(url, data, 'put', successCallback);
     return this.http<T>(config);
   }
 
+  /**
+   * Post requets
+   * 
+   * @param  {} data
+   * @param  {} url
+   * @param  {} customConfig
+   * @param  {} successCallback
+   * @returns Observable
+   */
   public delete<T> (data: {new(): T; }, url: string, successCallback): Observable<T[]> {
 
     const config = this.buildConfig(url, '', 'delete', successCallback);
     return this.http<T>(config);
   }
 
-
+  /**
+   * Prepare header for request
+   * 
+   * @param  {} data
+   */
   private prepareHeader(data) {
+
     // Set content type to JSON
     let headers: Headers;
 
@@ -145,35 +196,49 @@ export class DelegatorService {
 
     return headers;
   }
-
-  // private handleError(error: Response) {
-  //     return Observable.throw(error.json().errors || error);
-  // }
-
+  /**
+   * handle observer after compeltion of request
+   * 
+   * @param  {} observer
+   * @param  {} tracker
+   */
   private handleRespone<T> (observer, tracker) {
      return observer.subscribe(
       (result: Response) => {
+        // success in getting response
+        // delete request from runningRequests
         delete this.runningRequests[tracker.requestId];
         tracker.config.successCallback(<T>result.json());
       },
       error => {
+        // error in getting response
         if (error.status !== 419) {
+          // if error's status is not 419 then delete request from runningRequests
           delete this.runningRequests[tracker.requestId];
         }
         this.utility.handleError(error);
       });
   }
-
+  /**
+   * Lock requests, it won't interact to server and store requests
+   */
   public lockRequest() {
     this.lockedForRefresh = true;
   }
 
+  /**
+   * Lock requests, execute requests from executeDelayedRequests and executeRunningRequests
+   */
   public unLockRequest() {
     this.lockedForRefresh = false;
     this.executeRunningRequests();
     this.executeDelayedRequests();
   }
-
+  /**
+   * Store requets after locked
+   * 
+   * @param  {} config
+   */
   public storeDelayedRequest(config) {
     const requestId = this.nextRequestId();
     const tracker = {
@@ -183,11 +248,16 @@ export class DelegatorService {
     this.delayRequests[requestId] = tracker;
   }
 
+  /**
+   * Increment requestCounter and return new number as a string
+   */
   private nextRequestId() {
-    // Increment requestCounter and return new number as a string
     return this.requestCounter += 1;
   }
 
+  /**
+   * Execute running requests
+   */
   private executeRunningRequests() {
     for (const key in this.runningRequests) {
       if (this.runningRequests.hasOwnProperty(key)) {
@@ -197,6 +267,9 @@ export class DelegatorService {
     }
   }
 
+  /**
+   * Executes delayed requests
+   */
   private executeDelayedRequests() {
     for (const key in this.delayRequests) {
       if (this.delayRequests.hasOwnProperty(key)) {
@@ -206,6 +279,11 @@ export class DelegatorService {
     }
   }
 
+  /**
+   * Execute requests
+   * 
+   * @param  {} request
+   */
   private executeRequests(request) {
     const config = this.buildConfig(
       request.config.url,

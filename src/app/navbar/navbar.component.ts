@@ -10,6 +10,9 @@ import { Observable } from 'rxjs/Rx';
 import { UtilityService } from '../common/ts/utility.service';
 import {Configuration} from '../app.constants';
 
+/**
+ * Nabar Component
+ */
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -54,6 +57,9 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  /**
+   * @param  {} locationUrl
+   */
   getHeaderTitle(locationUrl) {
     const url = locationUrl.split('/')[1];
     const title = url.substr(0, 1);
@@ -61,12 +67,19 @@ export class NavbarComponent implements OnInit {
     return title + titleCovered;
   }
 
-
+  /**
+   * Resset notification count
+   */
   resetNotificationCount() {
     this.setBadge(0);
     this.broadCastNotificationCount();
   }
 
+  /**
+   * Get notification
+   * 
+   * @param  {} data
+   */
   onGetNotification(data) {
     if (this.route.url !== this.configuration.STATES.notifications) {
       console.log('Navbar Notification receieved', data);
@@ -79,6 +92,11 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Set badge
+   * 
+   * @param  {} badgeCount
+   */
   setBadge(badgeCount) {
     if (badgeCount > 0) {
       if (!this.notificationCount) {
@@ -90,6 +108,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Get read notification
+   */
   getMoreUnReadNotifications() {
     if (this.pagination.hasNext) {
       this.pagination.page += 1;
@@ -100,16 +121,28 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  /**
+   * Broadcast notification count
+   */
   broadCastNotificationCount() {
     this.notificationSharedServiceService.announceNotification
     (this.notificationCount);
   }
 
+  /**
+   * Generate event
+   * 
+   * @param  {} eventType
+   * @param  {} data
+   */
   generateEvent(eventType, data) {
     this.navbarEventHandlerService
     .announceNavbarEventNotification(eventType, data);
   }
 
+  /**
+   * Retrieve data
+   */
   retrieveData() {
     const serviceListSuccess = (res) => {
       this.pagination.currentPage = res.currentPage;

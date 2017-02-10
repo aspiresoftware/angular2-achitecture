@@ -3,11 +3,15 @@ import { Router } from '@angular/router';
 import {NotificationSharedServiceService} from '../common/ts/shared-service/notification-shared-service.service';
 import {Configuration} from '../app.constants';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-hamburger',
   templateUrl: './hamburger.component.html',
   styleUrls: ['./hamburger.component.scss']
 })
+
 export class HamburgerComponent implements OnInit {
 
   notificationCount;
@@ -21,6 +25,9 @@ export class HamburgerComponent implements OnInit {
     // TODO: make one common code for route change
   }
 
+  /**
+   * @param  {} notificationCount
+   */
   onUpdateNotification(notificationCount) {
     this.notificationCount = notificationCount;
   }
@@ -28,7 +35,5 @@ export class HamburgerComponent implements OnInit {
   ngOnInit() {
     this.notificationSharedServiceService.notificationAnnounced$
     .subscribe((notification) => {this.onUpdateNotification(notification); });
-
   }
-
 }
