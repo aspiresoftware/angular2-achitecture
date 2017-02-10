@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import {NavbarEventHandlerService} from '../common/ts/shared-service/navbar-event-handler.service';
 
+/**
+ * User Component
+ */
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -20,6 +23,7 @@ export class UsersComponent implements OnInit {
   page = 0;
   pagesize = 10;
   windowWidth;
+
   // Modal letiable Declarations
   visible = false;
   visibleAnimate = false;
@@ -32,6 +36,9 @@ export class UsersComponent implements OnInit {
     .subscribe((data) => {this.onNavbarEvent(data); });
   }
 
+  /**
+   * @param  {} data
+   */
   onNavbarEvent(data) {
     switch (data.eventType) {
       case  'showModalEvent':

@@ -8,6 +8,9 @@ import { LocalStorageService } from './local-storage.service';
 import { DelegatorService } from './delegator.service';
 import { LoginService } from '../../login/login.service';
 
+/**
+ * This class implementes auth-refresher mechanism
+ */
 @Injectable()
 export class AuthRefresherService {
 
@@ -30,6 +33,12 @@ export class AuthRefresherService {
 
     const refreshToken = this.localStorageService.getValue('refreshToken');
 
+    /**
+     * Sets new access token and refresh token to localStorage and
+     * Unlocks the requests from delegator service
+     * 
+     * @param  {} result
+     */
     const refreshTokenSuccess = (result) => {
         console.log(result);
         this.localStorageService.setValue('accessToken', result.accessToken);
@@ -38,21 +47,13 @@ export class AuthRefresherService {
         this.delegatorService.unLockRequest();
       };
 
+      // Send request for new access token
     const operation: Observable<any> = this.loginService.refreshAccessToken(refreshToken, refreshTokenSuccess);
-
-    // operation.subscribe(
-    //   (result) => {
-    //     console.log(result);
-    //     this.localStorageService.setValue('accessToken', result.accessToken);
-    //     this.localStorageService.setValue('refreshToken', result.refreshToken);
-    //     this.lockedForRefresh = false;
-    //     this.delegatorService.unLockRequest();
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   });
   }
-
+  /**
+   * Set lockedForRefresh as true
+   * Lock all the upcoming request in delegator service
+   */
   public interceptSessionExpired() {
     if (!this.lockedForRefresh) {
       this.lockedForRefresh = true;

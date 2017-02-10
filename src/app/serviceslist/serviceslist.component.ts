@@ -4,6 +4,9 @@ import { UtilityService } from '../common/ts/utility.service';
 
 import { Observable } from 'rxjs/Rx';
 
+/**
+ * Service List Component
+ */
 @Component({
   selector: 'app-serviceslist',
   templateUrl: './serviceslist.component.html',
@@ -37,6 +40,9 @@ export class ServicesListComponent implements OnInit {
     const operation: Observable<any>  = this.infiniteScrollService.getData(this.page, serviceSuccess);
   }
 
+  /**
+   * Get data
+   */
   getMoreData() {
     if (this.hasNext) {
       this.page += 1;

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Configuration } from '../app.constants';
 import { DelegatorService } from '../common/ts/delegator.service';
 
+/**
+ * Register Service
+ */
 @Injectable()
 export class RegisterService {
 
@@ -19,6 +22,12 @@ export class RegisterService {
     };
   }
 
+  /**
+   * Regiter user
+   * 
+   * @param  {} user
+   * @param  {} successCallback
+   */
   public registerUser(user, successCallback) {
     return this.delegatorService.post(user, this.actionUrl.registerationUrl, '', successCallback);
   }

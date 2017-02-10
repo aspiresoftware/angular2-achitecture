@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
+/**
+ * Navbar service
+ */
 @Injectable()
 export class NavbarService {
 
@@ -11,6 +14,11 @@ export class NavbarService {
 
   constructor() { }
 
+  /**
+   * Show navbar
+   * 
+   * @param  {boolean} ifShow
+   */
   showNavBar(ifShow: boolean) {
     this._showNavBar.next(ifShow);
   }

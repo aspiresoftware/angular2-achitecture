@@ -7,6 +7,9 @@ import { FcmNotificationHandlerService } from '../fcm-notification/fcm-notificat
 
 import { Observable } from 'rxjs/Rx';
 
+/**
+ * 
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

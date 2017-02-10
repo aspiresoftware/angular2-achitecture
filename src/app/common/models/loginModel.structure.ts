@@ -1,3 +1,6 @@
+/**
+ * Login Model
+ */
 export class LoginModel {
     constructor(
         public email: string, // required

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * Constants 
+ */
 @Injectable()
 export class Configuration {
     public SERVER = {

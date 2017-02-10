@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * 
+ */
 @Injectable()
 export class LocalStorageService {
 
@@ -9,9 +12,11 @@ export class LocalStorageService {
   };
   private isStorage = false;
 
-  constructor() {
-  }
+  constructor() {}
 
+  /**
+   * Creates localstorage
+   */
   public create() {
     localStorage.setItem('auth', JSON.stringify(this.storage.auth));
     localStorage.setItem('user', JSON.stringify(this.storage.user));
@@ -19,6 +24,12 @@ export class LocalStorageService {
     return localStorage;
   }
 
+  /**
+   * Set value to localstorage
+   * 
+   * @param  {} key
+   * @param  {} value
+   */
   public setValue(key, value) {
     const objectKey = this.storageForKey(key);
     if (typeof (value) !== 'boolean') {
@@ -29,12 +40,17 @@ export class LocalStorageService {
     localStorage.setItem(objectKey, JSON.stringify(this.storage[objectKey]));
   }
 
+  /**
+   * Get value from localstorage
+   * 
+   * @param  {} key
+   * @returns any
+   */
   public getValue(key): any {
-    // let value = this.storage[objectKey][key].getitem();
     if (this.isLocalStorage()) {
       const objectKey = this.storageForKey(key);
       const value = JSON.parse(localStorage[objectKey])[key];
-      if (typeof(value) !== 'boolean'){
+      if (typeof(value) !== 'boolean') {
         return window.atob(JSON.parse(localStorage[objectKey])[key]);
       } else {
         return value;
@@ -44,10 +60,18 @@ export class LocalStorageService {
     }
   }
 
+  /**
+   * Check if localsorage is created or not
+   */
   public isLocalStorage() {
     return this.isStorage;
   }
 
+  /**
+   * Identify key of localstorage
+   * 
+   * @param  {} key
+   */
   private storageForKey(key) {
     switch (key) {
       case 'accessToken':

@@ -9,6 +9,9 @@ import { Configuration } from '../app.constants';
 
 import { Observable } from 'rxjs/Rx';
 
+/**
+ * Register Component
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,6 +30,8 @@ export class RegisterComponent implements OnInit {
     private utilityService: UtilityService,
     private configuration: Configuration
   ) {
+
+    // validation for form
     this.registerForm = formBuilder.group({
       email: [null, Validators.required],
       password: [null, Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(12)])],
@@ -37,6 +42,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Submit form
+   * 
+   * @param  {any} value
+   */
   public submitForm(value: any) {
     this.registerModel = new RegisterModel(
       value.email,
@@ -49,7 +59,7 @@ export class RegisterComponent implements OnInit {
       this.utilityService.navigateToState(this.configuration.STATES.login);
     };
 
-    let operation: Observable<UserModel[]> = this.registerService.registerUser(this.registerModel, registerSuccess);
+    const operation: Observable<UserModel[]> = this.registerService.registerUser(this.registerModel, registerSuccess);
   }
 
 }

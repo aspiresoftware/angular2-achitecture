@@ -3,11 +3,16 @@ import { NavbarService } from '../navbar/navbar.service';
 import { Router } from '@angular/router';
 import {NotificationSharedServiceService} from '../common/ts/shared-service/notification-shared-service.service';
 import {Configuration} from '../app.constants';
+
+/**
+ * 
+ */
 @Component({
   selector: 'app-hamburger',
   templateUrl: './hamburger.component.html',
   styleUrls: ['./hamburger.component.scss']
 })
+
 export class HamburgerComponent implements OnInit {
 
   showNavBar: boolean = false;
@@ -20,6 +25,9 @@ export class HamburgerComponent implements OnInit {
     private notificationSharedServiceService: NotificationSharedServiceService
   ) {
     // TODO: make one common code for route change
+    /**
+     * @param  {any} (url
+     */
     router.events.subscribe((url: any) => {
       if (localStorage.getItem('auth') && localStorage.getItem('user')) {
         // logged in so true
@@ -32,6 +40,9 @@ export class HamburgerComponent implements OnInit {
       }
     });
 
+    /**
+     * @param  {} mode
+     */
     this.navbarService.showNavBarEmitter.subscribe((mode) => {
       // mode will be null the first time it is created, so you need to igonore it when null
       if (mode !== null) {
@@ -40,6 +51,9 @@ export class HamburgerComponent implements OnInit {
     });
   }
 
+  /**
+   * @param  {} notificationCount
+   */
   onUpdateNotification(notificationCount) {
     this.notificationCount = notificationCount;
   }
@@ -47,7 +61,5 @@ export class HamburgerComponent implements OnInit {
   ngOnInit() {
     this.notificationSharedServiceService.notificationAnnounced$
     .subscribe((notification) => {this.onUpdateNotification(notification); });
-
   }
-
 }
