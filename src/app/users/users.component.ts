@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from './users.service';
 import {NavbarEventHandlerService} from '../common/ts/shared-service/navbar-event-handler.service';
+import { Configuration } from '../app.constants';
 
 @Component({
   selector: 'app-users',
@@ -23,10 +24,12 @@ export class UsersComponent implements OnInit {
   // Modal letiable Declarations
   visible = false;
   visibleAnimate = false;
+  states = this.configuration.STATES;
 
   constructor(
     private usersService: UsersService,
-    private navbarEventHandlerService: NavbarEventHandlerService
+    private navbarEventHandlerService: NavbarEventHandlerService,
+    private configuration: Configuration
   ) {
     this.navbarEventHandlerService.navbarEventAnnounced$
     .subscribe((data) => {this.onNavbarEvent(data); });

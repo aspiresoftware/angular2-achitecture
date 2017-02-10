@@ -11,6 +11,7 @@ import {Configuration} from '../app.constants';
 export class HamburgerComponent implements OnInit {
 
   notificationCount;
+  states = this.configuration.STATES;
 
   constructor(
     private router: Router,

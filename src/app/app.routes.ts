@@ -8,7 +8,11 @@ import { UsersComponent } from './users/users.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { ServicesListComponent } from './serviceslist/serviceslist.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import {MainComponent} from './main/main.component';
+import { MainComponent } from './main/main.component';
+import { ChartsComponent } from './charts/charts.component';
+import { D3ChartsComponent } from './d3-charts/d3-charts.component';
+import { FormElementsComponent } from './form-elements/form-elements.component';
+
 import { AuthGuardService } from './common/ts/auth-guard.service';
 import { IsAlreadyLoggedinService } from './common/ts/is-already-loggedin.service';
 
@@ -22,13 +26,16 @@ export const AppRoutes: Routes = [
     path: 'app', component: MainComponent, canActivate: [AuthGuardService],
     children: [
       {
-        path: '',  pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuardService]
+        path: '', pathMatch: 'full', redirectTo: 'home'
       },
       { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
       { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
       { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuardService] },
       { path: 'updateUser/:name/:email/:age/:city', component: UpdateUserComponent, canActivate: [AuthGuardService] },
       { path: 'serviceslist', component: ServicesListComponent, canActivate: [AuthGuardService] },
+      { path: 'charts', component: ChartsComponent, canActivate: [AuthGuardService] },
+      { path: 'd3Charts', component: D3ChartsComponent, canActivate: [AuthGuardService] },
+      { path: 'formElements', component: FormElementsComponent, canActivate: [AuthGuardService] }
     ]
   },
   // otherwise redirect to home

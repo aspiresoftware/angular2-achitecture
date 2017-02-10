@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
 
   public registerForm: FormGroup;
   public registerModel: RegisterModel;
+  states = this.configuration.STATES;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -6,6 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { DataTableModule } from 'angular2-datatable';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { ChartsModule } from 'ng2-charts';
+import { Ng2CompleterModule } from 'ng2-completer';
+import { SelectModule } from 'angular2-select';
+import { SliderModule, InputSwitchModule } from 'primeng/primeng';
+import { nvD3 } from 'ng2-nvd3';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +27,7 @@ import { ErrorNotifierService } from './common/ts/error-notifier.service';
 import { AuthRefresherService } from './common/ts/auth-refresher.service';
 import { UsersService } from './users/users.service';
 import { ServicesListService } from './serviceslist/serviceslist.service';
+
 import { IsAlreadyLoggedinService } from './common/ts/is-already-loggedin.service';
 import { FcmInitializerService } from './common/ts/fcm-initializer.service';
 
@@ -38,14 +44,17 @@ import { ServicesListComponent } from './serviceslist/serviceslist.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 
-import {FcmNotificationModule} from './fcm-notification/fcm-notification.module';
-import {EventListenerService} from './common/ts/event-listener.service';
-import {NotificationSharedServiceService} from './common/ts/shared-service/notification-shared-service.service';
-import {NavbarEventHandlerService} from './common/ts/shared-service/navbar-event-handler.service';
+import { FcmNotificationModule } from './fcm-notification/fcm-notification.module';
+import { EventListenerService } from './common/ts/event-listener.service';
+import { NotificationSharedServiceService } from './common/ts/shared-service/notification-shared-service.service';
+import { NavbarEventHandlerService } from './common/ts/shared-service/navbar-event-handler.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { MainComponent } from './main/main.component';
+import { ChartsComponent } from './charts/charts.component';
+import { FormElementsComponent } from './form-elements/form-elements.component';
+import { D3ChartsComponent } from './d3-charts/d3-charts.component';
 
 // Must export the config
 
@@ -62,7 +71,11 @@ import { MainComponent } from './main/main.component';
     NavbarComponent,
     HamburgerComponent,
     NotificationsComponent,
-    MainComponent
+    MainComponent,
+    ChartsComponent,
+    FormElementsComponent,
+    D3ChartsComponent,
+    nvD3
   ],
   imports: [
     BrowserModule,
@@ -73,6 +86,11 @@ import { MainComponent } from './main/main.component';
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes),
     FcmNotificationModule,
+    ChartsModule,
+    Ng2CompleterModule,
+    SelectModule,
+    SliderModule,
+    InputSwitchModule
   ],
   providers: [
     AppComponent,

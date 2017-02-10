@@ -19,6 +19,7 @@ export class UpdateUserComponent implements OnInit {
   age;
   city;
   oldData;
+  states = this.configuration.STATES;
 
   constructor(
     private usersService: UsersService,

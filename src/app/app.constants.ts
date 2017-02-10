@@ -19,15 +19,12 @@ export class Configuration {
         register: '/register',
         home: '/app/home',
         users: '/app/users',
-        updateUser: '/app/updateUser/:name/:email/:age/:city',
-        serviceslist: '/app/serviceslist'
-    };
-    public ROUTES = {
+        updateUser: '/app/updateUser',
+        serviceslist: '/app/serviceslist',
+        charts: '/app/charts',
+        d3Charts: '/app/d3Charts',
+        formElements: '/app/formElements',
         notifications: '/app/notifications',
-        login        : '/login',
-        register     : '/register',
-        users        : '/app/users',
-        serviceslist : '/app/serviceslist',
-        app          : '/app'
+
     };
 }

@@ -6,7 +6,7 @@
   <div class="scrollbar" id="style-1">
     <ul>
       <li>
-        <a [routerLink]="['/app/home']">
+        <a [routerLink]="[states.home]">
           <i class="fa fa-home fa-lg"></i>
           <span class="nav-text">Home</span>
         </a>
@@ -18,23 +18,41 @@
         </a>
       </li>-->
       <li>
-        <a >
+        <a [routerLink]="[states.notifications]">
          <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
           <span class="badge badge-on-bell" *ngIf="notificationCount">{{notificationCount}}
           </span>
-          <span class="nav-text" [routerLink]="['/app/notifications']">Notification</span>
+          <span class="nav-text" [routerLink]="[states.notifications]">Notification</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/app/users']">
+        <a [routerLink]="[states.users]">
           <i class="fa fa-users fa-lg"></i>
           <span class="nav-text">Users</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/app/serviceslist']">
+        <a [routerLink]="[states.serviceslist]">
           <i class="fa fa-bars fa-lg"></i>
           <span class="nav-text">Services</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="[states.charts]">
+          <i class="fa fa-bar-chart fa-lg"></i>
+          <span class="nav-text">Charts</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="[states.d3Charts]">
+          <i class="fa fa-line-chart fa-lg"></i>
+          <span class="nav-text">D3 Charts</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="[states.formElements]">
+          <i class="fa fa-pencil-square-o fa-lg"></i>
+          <span class="nav-text">Form Elements</span>
         </a>
       </li>
       <!--<li>
@@ -128,7 +146,7 @@
     </ul>
     <ul class="logout">
       <li>
-        <a >
+        <a>
           <i class="fa fa-sign-out fa-lg"></i>
           <span class="nav-text">Logout</span>
         </a>

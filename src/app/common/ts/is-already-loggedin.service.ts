@@ -20,7 +20,6 @@ export class IsAlreadyLoggedinService implements CanActivate {
     this.utilityService.navigateToState(this.configuration.STATES.app);
       return false;
     }
-
     return true;
   }
 }

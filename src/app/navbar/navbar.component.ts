@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   notificationCount: number;
   showHeaderPart: string;
   headerTitle: string;
+  states = this.configuration.STATES;
   private NOTIFICATION_TYPE = this.fcmNotificationConstatntService.FCM_NOTIFICATION_EVENT;
 
 
@@ -67,7 +68,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onGetNotification(data) {
-    if (this.route.url !== this.configuration.ROUTES.notifications) {
+    if (this.route.url !== this.configuration.STATES.notifications) {
       console.log('Navbar Notification receieved', data);
       this.setBadge(data.detail && data.detail.data && data.detail.data.count);
       this.broadCastNotificationCount();

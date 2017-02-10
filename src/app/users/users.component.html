@@ -31,10 +31,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of mf.data">
-            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]"><b>{{item.name}}</b></td>
-            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.email}}</td>
-            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.age}}</td>
-            <td [routerLink]="['/app/updateUser', item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
+            <td [routerLink]="[states.updateUser, item.name, item.email, item.age, item.city]"><b>{{item.name}}</b></td>
+            <td [routerLink]="[states.updateUser, item.name, item.email, item.age, item.city]">{{item.email}}</td>
+            <td [routerLink]="[states.updateUser, item.name, item.email, item.age, item.city]">{{item.age}}</td>
+            <td [routerLink]="[states.updateUser, item.name, item.email, item.age, item.city]">{{item.city | uppercase}}</td>
             <td><button type="button" class="btn btn-danger" (click)="deleteData(item.name, item.email, item.age, item.city)">x</button></td>
         </tr>
       </tbody>
@@ -51,7 +51,7 @@
   <div class="mobile" *ngIf="data.length > 0 && windowWidth < 769" infinite-scroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="getMoreData()">
     <h1 class="title well"><small>{{count}}</small></h1>
     <div class="container user-block" *ngFor="let item of mobileData">
-      <div class="col-xs-10 user-detail" [routerLink]="['/updateUser', item.name, item.email, item.age, item.city]">
+      <div class="col-xs-10 user-detail" [routerLink]="[states.updateUser, item.name, item.email, item.age, item.city]">
         <b>Name:</b> {{item.name}}<br>
         <b>Email:</b> {{item.email}}<br>
         <b>Age:</b> {{item.age}}<br>

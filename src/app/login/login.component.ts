@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public loginModel: LoginModel;
+  states = this.configuration.STATES;
 
   constructor(
     private formBuilder: FormBuilder,
