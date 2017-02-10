@@ -10,12 +10,12 @@
         <span class="icon-bar"></span>
       </button>
       <a [routerLink]="[states.home]" class="navbar-brand">Angular2 Demo</a>
-    <button *ngIf="showHeaderPart == '/app/users'" type="button" class="btn btn-primary btn-spacing hidden-md hidden-lg" (click)="generateEvent('showModalEvent')">Add User</button>
+    <button *ngIf="showHeaderPart == states.users" type="button" class="btn btn-primary btn-spacing hidden-md hidden-lg" (click)="generateEvent('showModalEvent')">Add User</button>
 
     </div>
     <div id="navbar" class="collapse navbar-collapse">
 
-     <button *ngIf="showHeaderPart == '/app/users'" type="button" class="btn btn-primary btn-spacing hidden-sm hidden-xs" (click)="generateEvent('showModalEvent')">Add User</button>
+     <button *ngIf="showHeaderPart == states.users" type="button" class="btn btn-primary btn-spacing hidden-sm hidden-xs" (click)="generateEvent('showModalEvent')">Add User</button>
 
     </div>
 

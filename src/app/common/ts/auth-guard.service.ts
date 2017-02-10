@@ -1,4 +1,4 @@
-import { Injectable, Inject} from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { FcmNotificationHandlerService } from '../../fcm-notification/fcm-notification-handler.service';
 import { FcmInitializerService } from './fcm-initializer.service';

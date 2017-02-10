@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 /**
- *
+ * Local storage service
  */
 @Injectable()
 export class LocalStorageService {
@@ -19,6 +19,7 @@ export class LocalStorageService {
   public create() {
     localStorage.setItem('auth', JSON.stringify(this.storage.auth));
     localStorage.setItem('user', JSON.stringify(this.storage.user));
+
     return localStorage;
   }
 

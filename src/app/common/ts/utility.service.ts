@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Wove} from 'aspect.js-angular';
 
 import { Router } from '@angular/router';
+
 import { LoggingAspect } from '../../aspects/logging.aspect';
 import { ErrorNotifierService } from './error-notifier.service';
 
@@ -35,4 +36,5 @@ export class UtilityService {
   public handleError(error) {
     this.loggingAspect.invokeOnThrowOfMethod(error);
   }
+
 }

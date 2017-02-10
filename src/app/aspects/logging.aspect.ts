@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {beforeMethod, afterMethod, onThrowOfMethod, Metadata} from 'aspect.js';
+import { Injectable } from '@angular/core';
+import { beforeMethod, afterMethod, onThrowOfMethod, Metadata } from 'aspect.js';
 
 import { ErrorNotifierService } from '../common/ts/error-notifier.service';
 
