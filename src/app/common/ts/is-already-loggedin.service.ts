@@ -4,15 +4,14 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable()
 export class IsAlreadyLoggedinService implements CanActivate {
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (localStorage.getItem('auth') && localStorage.getItem('user')) {
-    // already logged in so redirect to home page with the return url
-    this.router.navigate(['home']);
+      // already logged in so redirect to home page with the return url
+      this.router.navigate(['home']);
       return false;
     }
-
     return true;
   }
 }

@@ -17,9 +17,12 @@ export class Configuration {
         home: 'home',
         datatable: 'datatable',
         updateData: 'updateData/:name/:email/:age/:city',
-        infiniteScroll: 'infiniteScroll'
+        infiniteScroll: 'infiniteScroll',
+        charts: 'charts',
+        d3Charts: 'd3Charts',
+        formElements: 'formElements'
     };
     public ROUTES = {
         notifications: '/notifications'
-    }
+    };
 }

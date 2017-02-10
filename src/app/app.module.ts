@@ -6,6 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { DataTableModule } from 'angular2-datatable';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { ChartsModule } from 'ng2-charts';
+import { Ng2CompleterModule } from 'ng2-completer';
+import { SelectModule } from 'angular2-select';
+import { SliderModule, InputSwitchModule } from 'primeng/primeng';
+import { nvD3 } from 'ng2-nvd3';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,9 +24,9 @@ import { AuthGuardService } from './common/ts/auth-guard.service';
 import { DatatableService } from './datatable/datatable.service';
 import { InfiniteScrollService } from './infinite-scroll/infinite-scroll.service';
 import { NavbarService } from './navbar/navbar.service';
-import {IsAlreadyLoggedinService} from './common/ts/is-already-loggedin.service';
-import {FcmInitializerService} from './common/ts/fcm-initializer.service';
-import {NotificationsService} from './notifications/notifications.service';
+import { IsAlreadyLoggedinService } from './common/ts/is-already-loggedin.service';
+import { FcmInitializerService } from './common/ts/fcm-initializer.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 // Aspect Modules
 import { LoggingAspect } from './aspects/logging.aspect';
@@ -36,12 +41,15 @@ import { InfiniteScrollComponent } from './infinite-scroll/infinite-scroll.compo
 import { NavbarComponent } from './navbar/navbar.component';
 import { HamburgerComponent } from './hamburger/hamburger.component';
 
-import {FcmNotificationModule} from './fcm-notification/fcm-notification.module';
-import {EventListenerService} from './common/ts/event-listener.service';
-import {NotificationSharedServiceService} from './common/ts/shared-service/notification-shared-service.service';
+import { FcmNotificationModule } from './fcm-notification/fcm-notification.module';
+import { EventListenerService } from './common/ts/event-listener.service';
+import { NotificationSharedServiceService } from './common/ts/shared-service/notification-shared-service.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ChartsComponent } from './charts/charts.component';
+import { FormElementsComponent } from './form-elements/form-elements.component';
+import { D3ChartsComponent } from './d3-charts/d3-charts.component';
 
 // Must export the config
 
@@ -57,7 +65,11 @@ import { NotificationsComponent } from './notifications/notifications.component'
     InfiniteScrollComponent,
     NavbarComponent,
     HamburgerComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ChartsComponent,
+    FormElementsComponent,
+    D3ChartsComponent,
+    nvD3
   ],
   imports: [
     BrowserModule,
@@ -68,6 +80,11 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes),
     FcmNotificationModule,
+    ChartsModule,
+    Ng2CompleterModule,
+    SelectModule,
+    SliderModule,
+    InputSwitchModule
   ],
   providers: [
     AppComponent,

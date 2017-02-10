@@ -1,0 +1,196 @@
+<div class="container padding-on-top padding-on-left">
+  <div class="well">
+    <h4>Form ELements</h4>
+  </div>
+
+  <!--TextBox-->
+  <h3>TextBox and TextBox with Icon</h3>
+  <div class="form-group">
+    <input type="text" class="form-control">
+  </div>
+
+  <!--Textbox with icon-->
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Textbox with Icon"/>
+    <span class="input-group-addon">
+      <i class="fa fa-search"></i>
+    </span>
+  </div>
+
+  <hr class="soften">
+
+  <!--Textbox with Softsearch-->
+  <h3>Textbox with Softsearch : Search color</h3>
+  <ng2-completer [(ngModel)]="searchStr" [dataService]="dataService" [minSearchLength]="0"></ng2-completer>
+
+  <hr class="soften">
+
+  <!--Selectbox with Softsearch-->
+  <h3>Selectbox with Softsearch</h3>
+  <form class="selectbox-softsearch" [formGroup]="form">
+    <div class="selectbox-heading">Single select example</div>
+    <ng-select
+      [options]="options0"
+      [multiple]="multiple0"
+      placeholder="Select one"
+      formControlName="selectSingle"
+      [allowClear]="true"
+      (opened)="onSingleOpened()"
+      (closed)="onSingleClosed()"
+      (selected)="onSingleSelected($event)"
+      (deselected)="onSingleDeselected($event)">
+    </ng-select>
+    
+    <div class="selectbox-option-id">
+      Selected option id: {{form.value['selectSingle']}}
+    </div>
+
+    <div>Events:</div>
+    <pre #preSingle>{{logSingleString}}</pre>
+
+    <hr class="line">
+
+    <div class="selectbox-heading-multi">Multiple select example</div>
+    <ng-select
+      [options]="options1"
+      [multiple]="multiple1"
+      placeholder="Select multiple"
+          formControlName="selectMultiple"
+          (opened)="onMultipleOpened()"
+          (closed)="onMultipleClosed()"
+          (selected)="onMultipleSelected($event)"
+          (deselected)="onMultipleDeselected($event)">
+    </ng-select>
+
+    <div class="selectbox-option-id">
+      Selected option id: {{form.value['selectMultiple']}}
+    </div>
+
+    <div>Events:</div>
+    <pre #preMultiple>{{logMultipleString}}</pre>
+  </form>
+
+  <hr class="soften">
+
+  <!--TextArea-->
+  <h1>Text Area</h1>
+  <textarea ref-textarea [(ngModel)]="textValue" rows="4"></textarea><br/>
+  <button (click)="logText(textarea.value)">Update Log</button>
+  <button (click)="textValue=''">Clear</button>  
+  <h2>Log <button (click)="log=''">Clear</button></h2>
+  <pre>{{log}}</pre>
+
+  <hr class="soften">
+
+  <!--Checkbox-->
+  <h1>Checkbox</h1>
+  <p>
+      <label [class.selected]="cb1.checked">
+          <input #cb1 type="checkbox" value="one" (change)="logCheckbox(cb1)"> One
+      </label>
+      <label [class.selected]="cb2.checked">
+          <input #cb2 type="checkbox" value="two" (change)="logCheckbox(cb2)"> Two
+      </label>
+      <label [class.selected]="cb3.checked">
+          <input #cb3 type="checkbox" value="three" (change)="logCheckbox(cb3)"> Three
+      </label>
+  </p>
+  <h2>Log <button (click)="log=''">Clear</button></h2>
+  <pre>{{log}}</pre>
+
+  <hr class="soften">
+
+  <!--Radio Button-->
+  <h1>Radio</h1>
+  <p>
+    <label [class.selected]="r1.checked">
+      <input #r1 type="radio" name="r" value="one" (change)="logRadio(r1)"> One
+    </label>
+    <label [class.selected]="r2.checked">
+      <input #r2 type="radio" name="r" value="two" (change)="logRadio(r2)"> Two
+    </label>
+    <label [class.selected]="r3.checked">
+      <input #r3 type="radio" name="r" value="three" (change)="logRadio(r3)"> Three
+    </label>
+  </p>
+  <h2>Log <button (click)="log=''">Clear</button></h2>
+  <pre>{{log}}</pre>
+
+  <hr class="soften">
+
+  <!--Date Picker-->
+  <div class="row">
+    <div class="col-md-3 h2">Date Picker:</div>
+    <div class="col-md-3 h3">
+      <input type="date" [(ngModel)]="birthdate"/>
+    </div>
+  </div>
+
+  <hr class="soften">
+
+  <!--Time Picker-->
+  <div class="row">
+    <div class="col-md-3 h2">Time Picker:</div>
+    <div class="col-md-3 h3">
+      <input type="time" [(ngModel)]="birthtime"/>
+    </div>
+  </div>
+
+  <hr class="soften">
+
+  <!--Color Picker-->
+  <div class="row">
+    <div class="col-md-3 h2">Color Picker:</div>
+    <div class="col-md-3 h3">
+      <input type="color" name="favcolor" value="#ff0000">
+    </div>
+  </div>
+
+  <hr class="soften">
+
+  <!--Toggle Switch-->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Toggle Switch</h2>
+
+      <h3>Switch Value:  {{checked}}</h3>
+      <h3><p-inputSwitch [(ngModel)]="checked"></p-inputSwitch></h3>
+
+      <!--<label class="switch">
+        <input type="checkbox">
+        <div class="slider"></div>
+      </label>
+
+      <label class="switch">
+        <input type="checkbox" checked>
+        <div class="slider"></div>
+      </label><br><br>
+
+      <label class="switch">
+        <input type="checkbox">
+        <div class="slider round"></div>
+      </label>
+
+      <label class="switch">
+        <input type="checkbox" checked>
+        <div class="slider round"></div>
+      </label>-->
+    </div>
+  </div>
+
+  <hr class="soften">
+
+  <!--Sliders-->
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Sliders:</h2>
+      <h3>Slider Value:  {{val}}</h3>
+      <p-slider [(ngModel)]="val"></p-slider>
+      <h3>Range Slider Value:  {{rangeValues}}</h3>
+      <p-slider [(ngModel)]="rangeValues" [range]="true"></p-slider>
+    </div>
+  </div>
+
+  <hr class="soften">
+
+</div>

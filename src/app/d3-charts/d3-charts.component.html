@@ -1,0 +1,33 @@
+<div class="container padding-on-top padding-on-left">
+  <div class="well">
+    <h4>d3-charts works!</h4>
+  </div>
+
+  <!--<div>
+    Chart type: 
+    <select (change)="selectType($event.target.value)">
+        <option *ngFor="let type of chartTypes">{{type}}</option>
+    </select>
+  </div>-->
+
+  <div class="col-md-6">
+    <h3>Line Chart:</h3>
+    <nvd3 [options]="AllOptions.lineChart" [data]="AllData.lineChart"></nvd3>
+  </div>
+
+  <div class="col-md-6">
+    <h3>DiscreteBar Chart:</h3>
+    <nvd3 [options]="AllOptions.discreteBarChart" [data]="AllData.discreteBarChart"></nvd3>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Pie Chart:</h3>
+    <nvd3 [options]="AllOptions.pieChart" [data]="AllData.pieChart"></nvd3>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Donut Chart:</h3>
+    <nvd3 [options]="AllOptions.donutChart" [data]="AllData.donutChart"></nvd3>
+  </div>
+
+</div>
